@@ -1,6 +1,7 @@
 import 'package:beauty/constants.dart';
 import 'package:beauty/router.dart';
 import 'package:beauty/screens/auth/auth_screen.dart';
+import 'package:beauty/screens/auth/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Amazon cline',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        // useMaterial3: true,
         scaffoldBackgroundColor: kBackgroundColor,
         colorScheme: const ColorScheme.light(primary: kPrimaryColor),
         appBarTheme: const AppBarTheme(
@@ -36,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const AuthScreen(),
+      home: const OnboardingScreen(),
     );
   }
 }

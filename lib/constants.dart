@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // colors
@@ -9,11 +8,12 @@ const kTextColor = Color(0xFF3C4046);
 const kBackgroundColor = Color(0xFFF9F8FD);
 const kSelectedNavBarColor = Color(0xff165b4b);
 const kUnselectedNavBarColor = Colors.black;
+const kSelectedNavBarBackColor = Color(0xffd7e1df);
 
 TextTheme textTheme = TextTheme(
   displayLarge: GoogleFonts.roboto(
       fontSize: 48, fontWeight: FontWeight.w700, color: Colors.white),
-  displayMedium: GoogleFonts.poppins(
+  displayMedium: GoogleFonts.merriweather(
       fontSize: 58, fontWeight: FontWeight.w300, letterSpacing: -0.5),
   displaySmall: GoogleFonts.poppins(fontSize: 46, fontWeight: FontWeight.w400),
   headlineMedium: GoogleFonts.poppins(
@@ -21,25 +21,66 @@ TextTheme textTheme = TextTheme(
       fontWeight: FontWeight.w600,
       letterSpacing: 0.25,
       color: const Color(0xFF343046)),
-  headlineSmall: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w700),
-  titleLarge: GoogleFonts.poppins(
-      fontSize: 19, fontWeight: FontWeight.w500, letterSpacing: 0.15),
-  titleMedium: GoogleFonts.poppins(
-      fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
-  titleSmall: GoogleFonts.poppins(
-      fontSize: 13, fontWeight: FontWeight.w500, letterSpacing: 0.1),
-  bodyLarge: GoogleFonts.poppins(
-      fontSize: 15, fontWeight: FontWeight.w400, letterSpacing: 0.5),
-  bodyMedium: GoogleFonts.poppins(
+  headlineSmall:
+      GoogleFonts.merriweather(fontSize: 23, fontWeight: FontWeight.w700),
+  titleLarge:
+      GoogleFonts.merriweather(fontSize: 33, fontWeight: FontWeight.w500),
+  titleMedium: GoogleFonts.merriweather(fontSize: 18),
+  titleSmall:
+      GoogleFonts.merriweather(fontSize: 13, fontWeight: FontWeight.w500),
+  bodyLarge: GoogleFonts.merriweather(fontSize: 15),
+  bodyMedium: GoogleFonts.merriweather(
       fontSize: 13, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-  bodySmall: GoogleFonts.poppins(
+  bodySmall: GoogleFonts.merriweather(
       fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-  labelLarge: GoogleFonts.poppins(
-    fontSize: 20,
-    fontWeight: FontWeight.w500,
-  ),
-  labelSmall: GoogleFonts.poppins(
+  labelLarge: GoogleFonts.merriweather(fontSize: 22),
+  labelSmall: GoogleFonts.merriweather(
       fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
 );
 // ignore: constant_identifier_names
 const String USER_LOGGED_IN = 'isUserLoggedIn';
+
+// carousal
+const List<Color> carouselImages = [
+  Colors.deepPurple,
+  Colors.deepOrange,
+  Colors.pinkAccent
+];
+
+const List<Map<String, String>> categoryImages = [
+  {
+    'title': 'Haircut',
+    'image': 'assets/images/haircut.png',
+  },
+  {
+    'title': 'Nails',
+    'image': 'assets/images/nails.png',
+  },
+  {
+    'title': 'Facial',
+    'image': 'assets/images/facial.png',
+  },
+  {
+    'title': 'Coloring',
+    'image': 'assets/images/coloring.png',
+  },
+  {
+    'title': 'Spa',
+    'image': 'assets/images/spa.png',
+  },
+  {
+    'title': 'Waxing',
+    'image': 'assets/images/waxing.png',
+  },
+  {
+    'title': 'Makeup',
+    'image': 'assets/images/makeup.png',
+  },
+  {
+    'title': 'Massage',
+    'image': 'assets/images/massage.png',
+  },
+];
+// const List<Map<String, IconData>> profileData = [
+//   {'title': 'Home', IconData: Icons.home_outlined},
+// ];

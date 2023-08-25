@@ -1,3 +1,5 @@
+import 'package:beauty/screens/auth/widgets/custom_round_login_button.dart';
+import 'package:beauty/widgets/bottom_bar.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -12,148 +14,184 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  /// Default.
   final countryPicker = const FlCountryCodePicker();
+  final submitNumberKey = GlobalKey<FormState>();
+  CountryCode? code;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: AppBar(
-            flexibleSpace: Container(
-              color: Colors.white,
-            ),
-            title: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(Icons.close),
-                SizedBox(
-                  height: 20,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Help',
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                      Icon(
-                        Icons.question_mark_rounded,
-                        color: Colors.black,
-                      )
-                    ],
-                  ),
-                )
-              ],
-            )),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Log in',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 30),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  height: 55,
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('India (+91)'),
-                      Icon(Icons.keyboard_arrow_down)
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 15),
-                SizedBox(
-                  height: 55,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(24.0),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(width: 1),
-                          borderRadius: BorderRadius.circular(10)),
-                      suffixIcon: const Icon(Icons.check),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                const Text(
-                  'We will send a code to confirm your number to proceed your reservation.',
-                  maxLines: 2,
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 40),
-                Container(
-                  height: 53,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: kPrimaryColor),
-                  child: Center(
-                    child: Text(
-                      'Continue',
-                      style: textTheme.titleMedium,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Row(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: SizedBox(
+              height: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 1,
-                      width: size.width * 0.4,
-                      color: Colors.black,
-                    ),
-                    const Text(
-                      'or',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Container(
-                      height: 1,
-                      width: size.width * 0.4,
-                      color: Colors.black,
+                    const Icon(Icons.close),
+                    Text(
+                      'Help?',
+                      style: textTheme.titleMedium,
                     ),
                   ],
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                const Text(
-                  'I am a new user, ',
-                  style: TextStyle(fontSize: 18),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    'Create Account',
-                    style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: kPrimaryColor),
+              ),
+            )),
+        body: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Log in',
+                    style: textTheme.labelLarge!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                )
-              ],
-            )
-          ],
+                  const SizedBox(height: 30),
+                  InkWell(
+                    onTap: () async {
+                      code = await countryPicker.showPicker(context: context);
+                      // Null check
+                      if (code != null) setState(() {});
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      height: 55,
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          (code == null)
+                              ? const Text('India (+91)')
+                              : Text('${code!.name} (${code!.dialCode})'),
+                          const Icon(Icons.keyboard_arrow_down)
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    height: 55,
+                    child: Form(
+                      key: submitNumberKey,
+                      child: TextFormField(
+                        validator: (value) {
+                          String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                          RegExp regExp = RegExp(pattern);
+                          if (value == null || value.isEmpty) {
+                            return " Enter 10 digit mobile no.";
+                          } else if (!regExp.hasMatch(value)) {
+                            return 'Please enter a valid mobile number';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(24.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          suffixIcon: const Icon(Icons.check),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    'We will send a code to confirm your number to proceed your reservation.',
+                    maxLines: 2,
+                    style: textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 40),
+                  InkWell(
+                    onTap: () {
+                      if (submitNumberKey.currentState!.validate()) {
+                        Navigator.pushNamed(context, BottomBar.routeName);
+                      }
+                    },
+                    child: Container(
+                      height: 53,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: kPrimaryColor),
+                      child: Center(
+                        child: Text(
+                          'Continue',
+                          style: textTheme.titleMedium!
+                              .copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 1,
+                        width: size.width * 0.4,
+                        color: Colors.black,
+                      ),
+                      Text('or', style: textTheme.titleMedium),
+                      Container(
+                        height: 1,
+                        width: size.width * 0.4,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomRoundLoginButon(
+                        logoUrl: 'assets/images/google.png',
+                        voidCallback: () {},
+                      ),
+                      CustomRoundLoginButon(
+                        logoUrl: 'assets/images/facebook.png',
+                        voidCallback: () {},
+                      ),
+                      CustomRoundLoginButon(
+                        logoUrl: 'assets/images/insta.png',
+                        voidCallback: () {},
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    'I am a new user, ',
+                    style: textTheme.titleMedium,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Create Account',
+                      style: textTheme.titleMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: kPrimaryColor),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
