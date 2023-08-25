@@ -1,5 +1,6 @@
 import 'package:beauty/screens/auth/auth_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants.dart';
 
@@ -16,29 +17,29 @@ class OnboardingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 40),
+            SizedBox(height: 40.h),
             Center(
               child: SizedBox(
-                height: 350,
-                width: 200,
+                height: 300.h,
+                width: 200.w,
                 child: Image.asset('assets/images/logo.png'),
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 50.h),
             Text(
               'Saloon & Spa',
               style: textTheme.titleLarge,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text('Book saloon & spa from home at your finger tips.',
                 style: textTheme.labelLarge),
-            const SizedBox(height: 40),
+            SizedBox(height: 40.h),
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, AuthScreen.routeName);
               },
               child: Container(
-                height: 55,
+                height: 55.h,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     color: kPrimaryColor),
@@ -50,7 +51,7 @@ class OnboardingScreen extends StatelessWidget {
                       style:
                           textTheme.titleMedium!.copyWith(color: Colors.white),
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.h),
                     const Icon(
                       Icons.arrow_circle_right_outlined,
                       color: Colors.white,
