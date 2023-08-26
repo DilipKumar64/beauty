@@ -2,6 +2,7 @@ import 'package:beauty/screens/auth/widgets/custom_round_login_button.dart';
 import 'package:beauty/widgets/bottom_bar.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants.dart';
 
@@ -81,28 +82,26 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  SizedBox(
-                    height: 55,
-                    child: Form(
-                      key: submitNumberKey,
-                      child: TextFormField(
-                        validator: (value) {
-                          String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                          RegExp regExp = RegExp(pattern);
-                          if (value == null || value.isEmpty) {
-                            return " Enter 10 digit mobile no.";
-                          } else if (!regExp.hasMatch(value)) {
-                            return 'Please enter a valid mobile number';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(24.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          suffixIcon: const Icon(Icons.check),
-                        ),
+                  Form(
+                    key: submitNumberKey,
+                    child: TextFormField(
+                      validator: (value) {
+                        String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                        RegExp regExp = RegExp(pattern);
+                        if (value == null || value.isEmpty) {
+                          return " Enter 10 digit mobile no.";
+                        } else if (!regExp.hasMatch(value)) {
+                          return 'Please enter a valid mobile number';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: const EdgeInsets.all(18),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        suffixIcon: const Icon(Icons.check),
                       ),
                     ),
                   ),
@@ -120,7 +119,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       }
                     },
                     child: Container(
-                      height: 53,
+                      height: 45.h,
                       width: size.width,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
