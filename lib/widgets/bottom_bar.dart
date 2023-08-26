@@ -1,5 +1,6 @@
 import 'package:beauty/constants.dart';
 import 'package:beauty/screens/profile/screens/profile_screen.dart';
+import 'package:beauty/screens/schedule%20appoinment/screens/schedule_appoinmtnet_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:badges/badges.dart' as badges;
@@ -23,9 +24,7 @@ class _BottomBarState extends State<BottomBar> {
     const Center(
       child: Text("search page"),
     ),
-    const Center(
-      child: Text("Scheduled  Page"),
-    ),
+    const ScheduleAppoinmentScreen(),
     const Center(
       child: Text("notification Page"),
     ),
@@ -34,7 +33,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: pages[page],
+        body: IndexedStack(index: page, children: pages),
         bottomNavigationBar: NavigationBarTheme(
           data: const NavigationBarThemeData(
             height: 70,

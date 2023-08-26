@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomRoundLoginButon extends StatelessWidget {
   const CustomRoundLoginButon({
@@ -25,7 +26,7 @@ class CustomRoundLoginButon extends StatelessWidget {
             ),
           ],
         ),
-        height: 40,
+        height: 35.h,
         child: Image.asset(logoUrl),
       ),
     );

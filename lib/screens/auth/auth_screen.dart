@@ -2,6 +2,7 @@ import 'package:beauty/screens/auth/widgets/custom_round_login_button.dart';
 import 'package:beauty/widgets/bottom_bar.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants.dart';
 
@@ -55,7 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     style: textTheme.labelLarge!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30.h),
                   InkWell(
                     onTap: () async {
                       code = await countryPicker.showPicker(context: context);
@@ -64,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      height: 55,
+                      height: 50.h,
                       decoration: BoxDecoration(
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(10),
@@ -80,9 +81,9 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   SizedBox(
-                    height: 55,
+                    height: 50.h,
                     child: Form(
                       key: submitNumberKey,
                       child: TextFormField(
@@ -106,13 +107,13 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15.h),
                   Text(
                     'We will send a code to confirm your number to proceed your reservation.',
                     maxLines: 2,
                     style: textTheme.bodyLarge,
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: 40.h),
                   InkWell(
                     onTap: () {
                       if (submitNumberKey.currentState!.validate()) {
@@ -120,7 +121,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       }
                     },
                     child: Container(
-                      height: 53,
+                      height: 50.h,
                       width: size.width,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
@@ -134,7 +135,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -151,7 +152,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
