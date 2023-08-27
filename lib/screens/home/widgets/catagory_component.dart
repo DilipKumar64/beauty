@@ -1,5 +1,5 @@
 import 'package:beauty/constants.dart';
-import 'package:beauty/screens/home/single_service_screen.dart';
+import 'package:beauty/screens/single%20service/screens/single_service_screen.dart';
 import 'package:flutter/material.dart';
 
 class CatagoryComponent extends StatelessWidget {

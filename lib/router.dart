@@ -1,6 +1,7 @@
 import 'package:beauty/screens/auth/auth_screen.dart';
 import 'package:beauty/screens/auth/onboarding_screen.dart';
-import 'package:beauty/screens/home/single_service_screen.dart';
+import 'package:beauty/screens/payment/screens/payment_screen.dart';
+import 'package:beauty/screens/single%20service/screens/single_service_screen.dart';
 import 'package:beauty/screens/profile/screens/profile_screen.dart';
 import 'package:beauty/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => SingleServiceScreen(title: title),
+      );
+    case PaymentScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const PaymentScreen(),
       );
 
     default:
