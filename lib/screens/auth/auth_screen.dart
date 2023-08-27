@@ -81,33 +81,31 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15.h),
-                  SizedBox(
-                    height: 50.h,
-                    child: Form(
-                      key: submitNumberKey,
-                      child: TextFormField(
-                        validator: (value) {
-                          String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                          RegExp regExp = RegExp(pattern);
-                          if (value == null || value.isEmpty) {
-                            return " Enter 10 digit mobile no.";
-                          } else if (!regExp.hasMatch(value)) {
-                            return 'Please enter a valid mobile number';
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.all(24.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          suffixIcon: const Icon(Icons.check),
-                        ),
+                  const SizedBox(height: 15),
+                  Form(
+                    key: submitNumberKey,
+                    child: TextFormField(
+                      validator: (value) {
+                        String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+                        RegExp regExp = RegExp(pattern);
+                        if (value == null || value.isEmpty) {
+                          return " Enter 10 digit mobile no.";
+                        } else if (!regExp.hasMatch(value)) {
+                          return 'Please enter a valid mobile number';
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: const EdgeInsets.all(18),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        suffixIcon: const Icon(Icons.check),
                       ),
                     ),
                   ),
-                  SizedBox(height: 15.h),
+                  const SizedBox(height: 15),
                   Text(
                     'We will send a code to confirm your number to proceed your reservation.',
                     maxLines: 2,
@@ -121,7 +119,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       }
                     },
                     child: Container(
-                      height: 50.h,
+                      height: 45.h,
                       width: size.width,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),

@@ -39,7 +39,7 @@ class OnboardingScreen extends StatelessWidget {
                 Navigator.pushNamed(context, AuthScreen.routeName);
               },
               child: Container(
-                height: 55.h,
+                height: 45.h,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     color: kPrimaryColor),

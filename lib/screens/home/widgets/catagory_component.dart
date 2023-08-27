@@ -1,10 +1,15 @@
 import 'package:beauty/constants.dart';
+import 'package:beauty/screens/home/single_service_screen.dart';
 import 'package:flutter/material.dart';
 
 class CatagoryComponent extends StatelessWidget {
   const CatagoryComponent({
     super.key,
   });
+  void navigateToSingleCategoryPage(BuildContext context, String title) {
+    Navigator.pushNamed(context, SingleServiceScreen.routeName,
+        arguments: title);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +30,22 @@ class CatagoryComponent extends StatelessWidget {
                 mainAxisSpacing: 10, crossAxisCount: 4),
             itemBuilder: (context, index) {
               categoryImages[index]['image'];
-              return Column(
-                children: [
-                  CircleAvatar(
-                    radius: 36,
-                    backgroundColor: const Color(0xffe2f5fa),
-                    child: Image.asset(categoryImages[index]['image']!),
-                  ),
-                  Text(
-                    categoryImages[index]['title']!,
-                    style: textTheme.bodySmall,
-                  )
-                ],
+              return GestureDetector(
+                onTap: () => navigateToSingleCategoryPage(
+                    context, categoryImages[index]['title']!),
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 36,
+                      backgroundColor: const Color(0xffe2f5fa),
+                      child: Image.asset(categoryImages[index]['image']!),
+                    ),
+                    Text(
+                      categoryImages[index]['title']!,
+                      style: textTheme.bodySmall,
+                    )
+                  ],
+                ),
               );
             },
           ),

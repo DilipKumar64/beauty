@@ -16,7 +16,7 @@ TextTheme textTheme = TextTheme(
   displayMedium: GoogleFonts.merriweather(
       fontSize: 58, fontWeight: FontWeight.w300, letterSpacing: -0.5),
   displaySmall: GoogleFonts.poppins(fontSize: 46, fontWeight: FontWeight.w400),
-  headlineMedium: GoogleFonts.poppins(
+  headlineMedium: GoogleFonts.merriweather(
       fontSize: 33,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.25,
@@ -29,10 +29,8 @@ TextTheme textTheme = TextTheme(
   titleSmall:
       GoogleFonts.merriweather(fontSize: 13, fontWeight: FontWeight.w500),
   bodyLarge: GoogleFonts.merriweather(fontSize: 15),
-  bodyMedium: GoogleFonts.merriweather(
-      fontSize: 13, fontWeight: FontWeight.w400, letterSpacing: 0.25),
-  bodySmall: GoogleFonts.merriweather(
-      fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+  bodyMedium: GoogleFonts.merriweather(fontSize: 13),
+  bodySmall: GoogleFonts.merriweather(fontSize: 12),
   labelLarge: GoogleFonts.merriweather(fontSize: 22),
   labelSmall: GoogleFonts.merriweather(
       fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
