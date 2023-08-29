@@ -1,6 +1,9 @@
+import 'package:beauty/bloc/bloc/auth_bloc.dart';
 import 'package:beauty/constants.dart';
+import 'package:beauty/screens/auth/screens/auth_screen.dart';
 import 'package:beauty/screens/profile/widgets/profile_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -66,20 +69,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 5),
               const Divider(thickness: 1),
               const SizedBox(height: 10),
-              const ProfileTile(title: 'Home', iconData: Icons.home_outlined),
-              const ProfileTile(
+              ProfileTile(
+                  title: 'Home', iconData: Icons.home_outlined, fun: () {}),
+              ProfileTile(
                   title: 'Notification',
-                  iconData: Icons.notifications_active_outlined),
-              const ProfileTile(
-                  title: 'My bookings', iconData: Icons.book_outlined),
-              const ProfileTile(title: 'User invoice', iconData: Icons.copy),
-              const ProfileTile(
-                  title: 'Cart', iconData: Icons.shopping_cart_outlined),
-              const ProfileTile(
-                  title: 'Report an issue', iconData: Icons.question_mark),
-              const ProfileTile(title: 'About Us', iconData: Icons.menu),
-              const ProfileTile(
-                  title: 'Sign out', iconData: Icons.logout_rounded),
+                  iconData: Icons.notifications_active_outlined,
+                  fun: () {}),
+              ProfileTile(
+                  title: 'My bookings',
+                  iconData: Icons.book_outlined,
+                  fun: () {}),
+              ProfileTile(
+                  title: 'User invoice', iconData: Icons.copy, fun: () {}),
+              ProfileTile(
+                  title: 'Cart',
+                  iconData: Icons.shopping_cart_outlined,
+                  fun: () {}),
+              ProfileTile(
+                  title: 'Report an issue',
+                  iconData: Icons.question_mark,
+                  fun: () {}),
+              ProfileTile(title: 'About Us', iconData: Icons.menu, fun: () {}),
+              BlocListener<AuthBloc, AuthState>(
+                listener: (context, state) {
+                  if (state is UnAuthenticated) {
+                    Navigator.pushNamed(context, AuthScreen.routeName);
+                  }
+                },
+                child: ProfileTile(
+                    title: 'Sign out',
+                    iconData: Icons.logout_rounded,
+                    fun: () {
+                      print('dfsda');
+                      BlocProvider.of<AuthBloc>(context)
+                          .add(SignOutRequested());
+                    }),
+              ),
             ],
           ),
         ),

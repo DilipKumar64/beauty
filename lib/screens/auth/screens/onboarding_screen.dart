@@ -1,8 +1,8 @@
-import 'package:beauty/screens/auth/auth_screen.dart';
+import 'package:beauty/screens/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

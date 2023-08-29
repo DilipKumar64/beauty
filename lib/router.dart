@@ -1,5 +1,6 @@
-import 'package:beauty/screens/auth/auth_screen.dart';
-import 'package:beauty/screens/auth/onboarding_screen.dart';
+import 'package:beauty/screens/auth/screens/auth_screen.dart';
+import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
+import 'package:beauty/screens/auth/screens/sign_up_screen.dart';
 import 'package:beauty/screens/payment/screens/payment_screen.dart';
 import 'package:beauty/screens/single%20service/screens/single_service_screen.dart';
 import 'package:beauty/screens/profile/screens/profile_screen.dart';
@@ -38,6 +39,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const PaymentScreen(),
+      );
+    case SignUpScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const SignUpScreen(),
       );
 
     default:

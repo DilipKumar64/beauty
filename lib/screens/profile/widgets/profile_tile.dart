@@ -6,26 +6,31 @@ class ProfileTile extends StatelessWidget {
     super.key,
     required this.title,
     required this.iconData,
+    required this.fun,
   });
   final String title;
   final IconData iconData;
+  final VoidCallback fun;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Icon(
-              iconData,
-              size: 30,
-              color: Colors.black,
-            ),
-            const SizedBox(width: 20),
-            Text(
-              title,
-              style: textTheme.bodyLarge,
-            ),
-          ],
+        InkWell(
+          onTap: () => fun,
+          child: Row(
+            children: [
+              Icon(
+                iconData,
+                size: 30,
+                color: Colors.black,
+              ),
+              const SizedBox(width: 20),
+              Text(
+                title,
+                style: textTheme.bodyLarge,
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 10),
       ],
