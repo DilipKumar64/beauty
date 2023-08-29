@@ -1,10 +1,11 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../bloc/bloc/auth_bloc.dart';
 import '../../../constants.dart';
-import '../../../widgets/bottom_bar.dart';
+import '../../../repositories/auth_repository.dart';
 import '../widgets/custom_round_login_button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -17,9 +18,12 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final emailSignUpKey = GlobalKey<FormState>();
+  AuthBloc authBloc = AuthBloc(authRepository: AuthRepository());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     return SafeArea(
         child: Scaffold(
       resizeToAvoidBottomInset: false,
@@ -46,15 +50,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is Authenticated) {
-            // Navigating to the dashboard screen if the user is authenticated
-            Navigator.pushReplacementNamed(context, BottomBar.routeName);
-          }
-          if (state is AuthError) {
-            // Showing the error message if the user has entered invalid credentials
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
-          }
+          // if (state is Authenticated) {
+          //   // Navigating to the dashboard screen if the user is authenticated
+          //   Navigator.pushReplacementNamed(context, BottomBar.routeName);
+          // }
+          // if (state is AuthError) {
+          //   // Showing the error message if the user has entered invalid credentials
+          //   ScaffoldMessenger.of(context)
+          //       .showSnackBar(SnackBar(content: Text(state.error)));
+          // }
         },
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
@@ -85,44 +89,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Column(
                           children: [
                             TextFormField(
-                              validator: (value) {
-                                String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                                RegExp regExp = RegExp(pattern);
-                                if (value == null || value.isEmpty) {
-                                  return " Enter 10 digit mobile no.";
-                                } else if (!regExp.hasMatch(value)) {
-                                  return 'Please enter a valid mobile number';
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.number,
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) =>
+                                  EmailValidator.validate(value!)
+                                      ? null
+                                      : "Please enter a valid email",
                               decoration: InputDecoration(
                                 hintText: 'email',
                                 isDense: true,
                                 contentPadding: const EdgeInsets.all(18),
                                 border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                             ),
                             SizedBox(height: 20.h),
                             TextFormField(
+                              controller: passwordController,
                               validator: (value) {
-                                String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                                RegExp regExp = RegExp(pattern);
                                 if (value == null || value.isEmpty) {
-                                  return " Enter 10 digit mobile no.";
-                                } else if (!regExp.hasMatch(value)) {
-                                  return 'Please enter a valid mobile number';
+                                  return "password is required";
+                                } else if (value.length < 6) {
+                                  return 'password should have at least 6 charactor';
                                 }
                                 return null;
                               },
-                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 hintText: 'password',
                                 isDense: true,
                                 contentPadding: const EdgeInsets.all(18),
                                 border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 suffixIcon: const Icon(Icons.check),
                               ),
                             ),
@@ -133,7 +132,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       InkWell(
                         onTap: () {
                           if (emailSignUpKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, BottomBar.routeName);
+                            BlocProvider.of<AuthBloc>(context).add(
+                                SignUpRequested(emailController.text,
+                                    passwordController.text));
                           }
                         },
                         child: Container(
