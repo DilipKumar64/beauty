@@ -62,7 +62,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                 if (_otpFormKey.currentState!.validate()) {
                   _verifyOtp(
                       context: context,
-                      otp: widget.codeController.value.toString());
+                      otp: widget.codeController.text.toString());
                 }
               },
               child: Container(
