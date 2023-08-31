@@ -1,4 +1,5 @@
 import 'package:beauty/screens/auth/screens/auth_screen.dart';
+import 'package:beauty/screens/auth/screens/email_sign_in_screen.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
 import 'package:beauty/screens/auth/screens/sign_up_screen.dart';
 import 'package:beauty/screens/payment/screens/payment_screen.dart';
@@ -40,10 +41,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const PaymentScreen(),
       );
-    case SignUpScreen.routeName:
+    case EmailSignUpScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const SignUpScreen(),
+        builder: (_) => const EmailSignUpScreen(),
+      );
+    case EmailSignInScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const EmailSignInScreen(),
       );
 
     default:

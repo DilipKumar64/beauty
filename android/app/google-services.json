@@ -14,7 +14,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "925629266227-bgfgmfth5hkgb3pj3aheh28m4ce932od.apps.googleusercontent.com",
+          "client_id": "925629266227-b90jdvci4loipo8dn43jtcjcbn3vcju4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beauty",
+            "certificate_hash": "938aa972d8bbb50e800cca1fa2c6a498e2d94dea"
+          }
+        },
+        {
+          "client_id": "925629266227-hjepklsp7v1l1ibapb6o8ajpso68rucr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beauty",
+            "certificate_hash": "affed89cc50b406d57c1d66566ed792571da8860"
+          }
+        },
+        {
+          "client_id": "925629266227-u9q43top4bkfv4vkfpjt2g1lk7qn2ekg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +45,13 @@
             {
               "client_id": "925629266227-bgfgmfth5hkgb3pj3aheh28m4ce932od.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "925629266227-a93i85v3eqhteataed8l4retv3s9hm13.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.beauty"
+              }
             }
           ]
         }

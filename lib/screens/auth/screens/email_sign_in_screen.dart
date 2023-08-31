@@ -9,15 +9,15 @@ import '../../../repositories/auth_repository.dart';
 import '../widgets/custom_round_login_button.dart';
 import '../widgets/custom_text_field.dart';
 
-class EmailSignUpScreen extends StatefulWidget {
-  const EmailSignUpScreen({super.key});
-  static const routeName = '/sing-up';
+class EmailSignInScreen extends StatefulWidget {
+  const EmailSignInScreen({super.key});
+  static const routeName = '/sing-in';
 
   @override
-  State<EmailSignUpScreen> createState() => _SignUpScreenState();
+  State<EmailSignInScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<EmailSignUpScreen> {
+class _SignUpScreenState extends State<EmailSignInScreen> {
   final emailSignUpKey = GlobalKey<FormState>();
   AuthBloc authBloc = AuthBloc(authRepository: AuthRepository());
   bool obscureText = false;
@@ -30,7 +30,7 @@ class _SignUpScreenState extends State<EmailSignUpScreen> {
         child: Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(50),
         child: SizedBox(
           height: 50,
           child: Padding(
@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<EmailSignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Email Sign Up',
+                  'Email Sign In',
                   style: textTheme.labelLarge!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<EmailSignUpScreen> {
                 InkWell(
                   onTap: () {
                     if (emailSignUpKey.currentState!.validate()) {
-                      BlocProvider.of<AuthBloc>(context).add(SignUpRequested(
+                      BlocProvider.of<AuthBloc>(context).add(SignInRequested(
                           emailController.text, passwordController.text));
                     }
                   },

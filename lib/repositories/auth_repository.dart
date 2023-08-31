@@ -5,12 +5,12 @@ class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
   Future<void> signUp({required String email, required String password}) async {
     try {
-      await FirebaseAuth.instance
+      UserCredential data = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');
-      } else if (e.code == 'email-alread-in-use') {
+      } else if (e.code == 'email-already-in-use') {
         throw Exception('The account already exists for this email');
       }
     } catch (e) {
@@ -60,5 +60,21 @@ class AuthRepository {
       print(e);
       throw Exception(e.toString());
     }
+  }
+
+  Future<void> verifyPhone({
+    required String phoneNumber,
+    required Function(PhoneAuthCredential) verificationCompleted,
+    required Function(FirebaseAuthException) verificationFailed,
+    required Function(String, int?) codeSent,
+    required Function(String) codeAutoRetrievalTimeout,
+  }) async {
+    await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        timeout: const Duration(seconds: 60));
   }
 }

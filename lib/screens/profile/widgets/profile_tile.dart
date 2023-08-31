@@ -16,7 +16,7 @@ class ProfileTile extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () => fun,
+          onTap: fun,
           child: Row(
             children: [
               Icon(

@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '925629266227',
     projectId: 'beauty-bd2e4',
     storageBucket: 'beauty-bd2e4.appspot.com',
+    androidClientId: '925629266227-b90jdvci4loipo8dn43jtcjcbn3vcju4.apps.googleusercontent.com',
     iosClientId: '925629266227-a93i85v3eqhteataed8l4retv3s9hm13.apps.googleusercontent.com',
     iosBundleId: 'com.example.beauty',
   );

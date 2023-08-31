@@ -1,9 +1,9 @@
 part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthState extends Equatable {}
+abstract class AuthState extends Equatable {}
 
-final class AuthInitial extends AuthState {
+class AuthInitial extends AuthState {
   @override
   List<Object?> get props => [];
 }
@@ -33,4 +33,22 @@ class AuthError extends AuthState {
   AuthError(this.error);
   @override
   List<Object?> get props => [error];
+}
+
+class PhoneAuthError extends AuthState {
+  final String error;
+
+  PhoneAuthError({required this.error});
+
+  @override
+  List<Object> get props => [error];
+}
+
+class PhoneAuthCodeSentSuccess extends AuthState {
+  final String verificationId;
+  PhoneAuthCodeSentSuccess({
+    required this.verificationId,
+  });
+  @override
+  List<Object> get props => [verificationId];
 }

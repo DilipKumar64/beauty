@@ -1,3 +1,5 @@
+import 'package:beauty/screens/auth/screens/email_sign_in_screen.dart';
+import 'package:beauty/screens/auth/screens/otp_screen.dart';
 import 'package:beauty/screens/auth/screens/sign_up_screen.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,10 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final countryPicker = const FlCountryCodePicker();
   final submitNumberKey = GlobalKey<FormState>();
-  CountryCode? code;
+  final _phoneNoController = TextEditingController();
+  final _codeController = TextEditingController();
+  CountryCode code =
+      const CountryCode(name: 'India', code: 'IN', dialCode: '+91');
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),
+            preferredSize: const Size.fromHeight(50),
             child: SizedBox(
               height: 50,
               child: Padding(
@@ -36,7 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.close),
+                    // const Icon(Icons.close),
                     Text(
                       'Help?',
                       style: textTheme.titleMedium,
@@ -56,6 +61,14 @@ class _AuthScreenState extends State<AuthScreen> {
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: Text(state.error)));
             }
+            // Show error message if any error occurs while verifying phone number and otp code
+            if (state is PhoneAuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error),
+                ),
+              );
+            }
           },
           child: BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
@@ -63,6 +76,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 // Showing the loading indicator while the user is signing in
                 return const Center(
                   child: CircularProgressIndicator(),
+                );
+              }
+              if (state is PhoneAuthCodeSentSuccess) {
+                return OtpWidget(
+                  codeController: _codeController,
+                  verificationId: state.verificationId,
+                  phoneNo: '${code.dialCode}${_phoneNoController.text}',
                 );
               }
 
@@ -83,10 +103,14 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(height: 30.h),
                         InkWell(
                           onTap: () async {
-                            code = await countryPicker.showPicker(
+                            CountryCode? local = await countryPicker.showPicker(
                                 context: context);
                             // Null check
-                            if (code != null) setState(() {});
+                            if (local != null) {
+                              setState(() {
+                                code = local;
+                              });
+                            }
                           },
                           child: Container(
                             padding:
@@ -99,9 +123,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                (code == null)
-                                    ? const Text('India (+91)')
-                                    : Text('${code!.name} (${code!.dialCode})'),
+                                Text('${code.name} (${code.dialCode})'),
                                 const Icon(Icons.keyboard_arrow_down)
                               ],
                             ),
@@ -111,13 +133,15 @@ class _AuthScreenState extends State<AuthScreen> {
                         Form(
                           key: submitNumberKey,
                           child: TextFormField(
+                            maxLength: 10,
+                            controller: _phoneNoController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-                              RegExp regExp = RegExp(pattern);
-                              if (value == null || value.isEmpty) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  value.length < 10) {
                                 return " Enter 10 digit mobile no.";
-                              } else if (!regExp.hasMatch(value)) {
-                                return 'Please enter a valid mobile number';
                               }
                               return null;
                             },
@@ -140,9 +164,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(height: 40.h),
                         InkWell(
                           onTap: () {
-                            if (submitNumberKey.currentState!.validate()) {
-                              Navigator.pushNamed(context, BottomBar.routeName);
-                            }
+                            _sendCode(context);
                           },
                           child: Container(
                             height: 45.h,
@@ -192,7 +214,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             CustomRoundLoginButon(
                               logoUrl: 'assets/images/gmail.png',
-                              voidCallback: () {},
+                              voidCallback: () {
+                                Navigator.pushNamed(
+                                    context, EmailSignInScreen.routeName);
+                              },
                             ),
                           ],
                         )
@@ -207,7 +232,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, SignUpScreen.routeName);
+                                context, EmailSignUpScreen.routeName);
                           },
                           child: Text(
                             'Create Account',
@@ -228,6 +253,15 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       ),
     );
+  }
+
+  void _sendCode(context) {
+    if (submitNumberKey.currentState!.validate()) {
+      BlocProvider.of<AuthBloc>(context).add(
+        SendOtpToPhoneEvent(
+            phoneNumber: '${code.dialCode}${_phoneNoController.text}'),
+      );
+    }
   }
 
   void _authenticateWithGoogle(context) {

@@ -36,7 +36,7 @@ class OnboardingScreen extends StatelessWidget {
             SizedBox(height: 40.h),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, AuthScreen.routeName);
+                Navigator.popAndPushNamed(context, AuthScreen.routeName);
               },
               child: Container(
                 height: 45.h,
