@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants.dart';
+import '../widgets/appoinment_time.dart';
 
 class ScheduleAppoinmentScreen extends StatefulWidget {
   const ScheduleAppoinmentScreen({super.key});
@@ -12,6 +13,7 @@ class ScheduleAppoinmentScreen extends StatefulWidget {
 }
 
 class _ScheduleAppoinmentScreenState extends State<ScheduleAppoinmentScreen> {
+  List<String> morningList = ['9:00am', '10:00am', '11:00am'];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,11 +38,26 @@ class _ScheduleAppoinmentScreenState extends State<ScheduleAppoinmentScreen> {
               ),
               const SizedBox(height: 5),
               const Divider(thickness: 1),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Text(
                 'Morning',
-                style: textTheme.bodyMedium,
-              )
+                style:
+                    textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 10.h),
+              SizedBox(
+                height: 100.h,
+                // width: double.maxFinite,
+                child: AppoinmentTme(
+                  list: morningList,
+                ),
+              ),
+              SizedBox(height: 15.h),
+              Text(
+                'Afternoon',
+                style:
+                    textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w500),
+              ),
             ],
           ),
         ),
