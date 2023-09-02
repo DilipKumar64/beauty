@@ -1,4 +1,4 @@
-import 'package:beauty/bloc/bloc/auth_bloc.dart';
+import 'package:beauty/bloc/auth/auth_bloc.dart';
 import 'package:beauty/constants.dart';
 import 'package:beauty/screens/auth/screens/auth_screen.dart';
 import 'package:beauty/screens/profile/widgets/profile_tile.dart';

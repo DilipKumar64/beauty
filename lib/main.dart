@@ -1,4 +1,4 @@
-import 'package:beauty/bloc/bloc/auth_bloc.dart';
+import 'package:beauty/bloc/auth/auth_bloc.dart';
 import 'package:beauty/bloc/schedule%20appoinment/schedule_appoinment_bloc.dart';
 import 'package:beauty/constants.dart';
 import 'package:beauty/firebase_options.dart';

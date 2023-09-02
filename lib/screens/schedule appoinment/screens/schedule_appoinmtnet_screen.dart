@@ -39,6 +39,23 @@ class _ScheduleAppoinmentScreenState extends State<ScheduleAppoinmentScreen> {
     super.initState();
   }
 
+  int extractPrice(String priceString) {
+    int price = 250;
+    int priceStringLength = priceString.length;
+    String temp = '';
+    for (int i = priceStringLength - 4; i <= priceStringLength - 1; i++) {
+      temp = temp + priceString[i];
+    }
+    price = int.parse(temp);
+    return price;
+  }
+
+  int returnFinalAmmount(String noOfPeople, String priceString) {
+    int amount = 250;
+    amount = int.parse(noOfPeople) * extractPrice(priceString);
+    return amount;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -154,7 +171,7 @@ class _ScheduleAppoinmentScreenState extends State<ScheduleAppoinmentScreen> {
                               color: const Color.fromARGB(255, 97, 97, 97)),
                         ),
                         Text(
-                          'Basic - Rs 250',
+                          widget.args['serviceType']!,
                           style: textTheme.bodyLarge!.copyWith(
                             color: const Color.fromARGB(255, 97, 97, 97),
                           ),
@@ -172,7 +189,7 @@ class _ScheduleAppoinmentScreenState extends State<ScheduleAppoinmentScreen> {
                               color: const Color.fromARGB(255, 97, 97, 97)),
                         ),
                         Text(
-                          '3',
+                          widget.args['noOfPeople']!,
                           style: textTheme.bodyLarge!.copyWith(
                             color: const Color.fromARGB(255, 97, 97, 97),
                           ),
@@ -191,7 +208,7 @@ class _ScheduleAppoinmentScreenState extends State<ScheduleAppoinmentScreen> {
                               letterSpacing: 1, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          '3 x 250 = Rs. 750',
+                          '${widget.args['noOfPeople']!} x ${extractPrice(widget.args['serviceType']!)} = Rs. ${returnFinalAmmount(widget.args['noOfPeople']!, widget.args['serviceType']!)}',
                           style: textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.w600,
                           ),

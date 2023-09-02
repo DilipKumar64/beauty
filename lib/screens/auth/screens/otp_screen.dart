@@ -1,4 +1,4 @@
-import 'package:beauty/bloc/bloc/auth_bloc.dart';
+`import 'package:beauty/bloc/auth/auth_bloc.dart';
 import 'package:beauty/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

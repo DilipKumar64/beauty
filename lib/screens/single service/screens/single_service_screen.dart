@@ -4,7 +4,6 @@ import 'package:beauty/screens/single%20service/widgets/three_display_pictures.d
 import 'package:beauty/screens/single%20service/widgets/top_big_picture.dart';
 import 'package:beauty/screens/single%20service/widgets/custom_expansion_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/bottom_buttons.dart';
