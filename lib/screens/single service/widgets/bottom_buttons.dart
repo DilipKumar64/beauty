@@ -6,8 +6,9 @@ import '../../../constants.dart';
 class BottomButtons extends StatelessWidget {
   const BottomButtons({
     super.key,
+    required this.onTap,
   });
-
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,9 +16,7 @@ class BottomButtons extends StatelessWidget {
       height: 100.h,
       color: const Color(0xffe2f5fa),
       child: GestureDetector(
-        onTap: () {
-          print('je;;p');
-        },
+        onTap: onTap,
         child: Column(
           children: [
             Container(

@@ -24,7 +24,8 @@ class _BottomBarState extends State<BottomBar> {
     const Center(
       child: Text("search page"),
     ),
-    const ScheduleAppoinmentScreen(),
+    const ScheduleAppoinmentScreen(
+        args: {"serviceType": "Basic - Rs 250", "noOfPeople": '2'}),
     const Center(
       child: Text("notification Page"),
     ),

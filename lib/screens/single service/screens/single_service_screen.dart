@@ -1,4 +1,5 @@
 import 'package:beauty/constants.dart';
+import 'package:beauty/screens/schedule%20appoinment/screens/schedule_appoinmtnet_screen.dart';
 import 'package:beauty/screens/single%20service/widgets/three_display_pictures.dart';
 import 'package:beauty/screens/single%20service/widgets/top_big_picture.dart';
 import 'package:beauty/screens/single%20service/widgets/custom_expansion_tile.dart';
@@ -153,7 +154,10 @@ class _SingleServiceScreenState extends State<SingleServiceScreen> {
                   ],
                 ),
               ),
-              const BottomButtons(),
+              BottomButtons(onTap: () {
+                Navigator.pushNamed(
+                    context, ScheduleAppoinmentScreen.routeName);
+              }),
             ],
           ),
         ),

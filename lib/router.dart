@@ -3,6 +3,7 @@ import 'package:beauty/screens/auth/screens/email_sign_in_screen.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
 import 'package:beauty/screens/auth/screens/sign_up_screen.dart';
 import 'package:beauty/screens/payment/screens/payment_screen.dart';
+import 'package:beauty/screens/schedule%20appoinment/screens/schedule_appoinmtnet_screen.dart';
 import 'package:beauty/screens/single%20service/screens/single_service_screen.dart';
 import 'package:beauty/screens/profile/screens/profile_screen.dart';
 import 'package:beauty/widgets/bottom_bar.dart';
@@ -51,7 +52,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const EmailSignInScreen(),
       );
-
+    case ScheduleAppoinmentScreen.routeName:
+      var args = routeSettings.arguments as Map<String, String>;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => ScheduleAppoinmentScreen(args: args),
+      );
     default:
       return MaterialPageRoute(
           builder: (_) => const Center(

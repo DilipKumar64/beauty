@@ -1,4 +1,5 @@
 import 'package:beauty/bloc/bloc/auth_bloc.dart';
+import 'package:beauty/bloc/schedule%20appoinment/schedule_appoinment_bloc.dart';
 import 'package:beauty/constants.dart';
 import 'package:beauty/firebase_options.dart';
 import 'package:beauty/repositories/auth_repository.dart';
@@ -40,10 +41,14 @@ class _MyAppState extends State<MyApp> {
         builder: (_, child) {
           return RepositoryProvider(
             create: (context) => AuthRepository(),
-            child: BlocProvider(
-              create: (context) => AuthBloc(
-                authRepository: RepositoryProvider.of<AuthRepository>(context),
-              ),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                    create: (context) => AuthBloc(
+                        authRepository:
+                            RepositoryProvider.of<AuthRepository>(context))),
+                BlocProvider(create: ((context) => ScheduleAppoinmentBloc()))
+              ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
