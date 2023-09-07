@@ -1,10 +1,14 @@
 import 'package:beauty/constants.dart';
 import 'package:beauty/screens/schedule%20appoinment/screens/schedule_appoinmtnet_screen.dart';
+import 'package:beauty/screens/single%20service/bloc/single_service_bloc.dart';
 import 'package:beauty/screens/single%20service/widgets/three_display_pictures.dart';
 import 'package:beauty/screens/single%20service/widgets/top_big_picture.dart';
 import 'package:beauty/screens/single%20service/widgets/custom_expansion_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 import '../widgets/bottom_buttons.dart';
 import '../widgets/service_title_and_rating.dart';
@@ -37,7 +41,7 @@ class SingleServiceScreen extends StatelessWidget {
                     SizedBox(height: 20.h),
                     ServiceTitleAndRating(title: title),
                     SizedBox(height: 15.h),
-                    const CustomExpansionTile(),
+                    CustomExpansionTile(),
                     SizedBox(height: 15.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,7 +64,19 @@ class SingleServiceScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  DateTime? selectedTime = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime.now(),
+                                      lastDate: DateTime.now()
+                                          .add(const Duration(days: 100)));
+                                  if (selectedTime != null) {
+                                    BlocProvider.of<SingleServiceBloc>(context)
+                                        .add(NewDateSelectedEvent(
+                                            selectedDate: selectedTime));
+                                  }
+                                },
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -69,10 +85,16 @@ class SingleServiceScreen extends StatelessWidget {
                                       Icons.calendar_today_rounded,
                                       size: 15,
                                     ),
-                                    Text(
-                                      '26/08/2023',
-                                      style: textTheme.bodySmall!
-                                          .copyWith(color: Colors.black),
+                                    BlocBuilder<SingleServiceBloc,
+                                        SingleServiceState>(
+                                      builder: (context, state) {
+                                        return Text(
+                                          DateFormat('dd/MM/yyyy')
+                                              .format(state.scheduledDate),
+                                          style: textTheme.bodySmall!
+                                              .copyWith(color: Colors.black),
+                                        );
+                                      },
                                     ),
                                     const Icon(
                                       Icons.keyboard_arrow_down_rounded,
@@ -103,7 +125,23 @@ class SingleServiceScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                              child: Container(
+                                            color: Colors.amber,
+                                            height: 40,
+                                            width: 30,
+                                            child: NumberPicker(
+                                                itemHeight: 40,
+                                                itemWidth: 40,
+                                                minValue: 1,
+                                                maxValue: 10,
+                                                value: 3,
+                                                onChanged: (value) {}),
+                                          )));
+                                },
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,

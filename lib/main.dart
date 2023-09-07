@@ -5,6 +5,7 @@ import 'package:beauty/router.dart';
 import 'package:beauty/screens/auth/bloc/auth_bloc.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
 import 'package:beauty/screens/schedule%20appoinment/bloc/schedule_appoinment_bloc.dart';
+import 'package:beauty/screens/single%20service/bloc/single_service_bloc.dart';
 import 'package:beauty/widgets/bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -47,7 +48,8 @@ class _MyAppState extends State<MyApp> {
                     create: (context) => AuthBloc(
                         authRepository:
                             RepositoryProvider.of<AuthRepository>(context))),
-                BlocProvider(create: ((context) => ScheduleAppoinmentBloc()))
+                BlocProvider(create: (context) => SingleServiceBloc()),
+                BlocProvider(create: ((context) => ScheduleAppoinmentBloc())),
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,

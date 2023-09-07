@@ -1,4 +1,3 @@
-import 'package:beauty/constants.dart';
 import 'package:beauty/screens/home/widgets/all_service_button.dart';
 import 'package:beauty/screens/home/widgets/carousal_image.dart';
 import 'package:beauty/screens/home/widgets/catagory_component.dart';

@@ -5,7 +5,7 @@ class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
   Future<void> signUp({required String email, required String password}) async {
     try {
-      UserCredential data = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
