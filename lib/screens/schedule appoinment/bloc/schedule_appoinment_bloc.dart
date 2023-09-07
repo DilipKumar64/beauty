@@ -8,13 +8,15 @@ part 'schedule_appoinment_state.dart';
 
 class ScheduleAppoinmentBloc
     extends Bloc<ScheduleAppoinmentEvent, ScheduleAppoinmentState> {
-  ScheduleAppoinmentBloc() : super(ScheduleAppoinmentInitial()) {
-    on<ScheduleAppoinmentTimeUpdatedEvent>(_timeUpdated);
+  ScheduleAppoinmentBloc() : super(const ScheduleAppoinmentState()) {
+    on<ScheduleAppoinmentUpdatedEvent>(_timeUpdated);
   }
 
-  FutureOr<void> _timeUpdated(ScheduleAppoinmentTimeUpdatedEvent event,
+  FutureOr<void> _timeUpdated(ScheduleAppoinmentUpdatedEvent event,
       Emitter<ScheduleAppoinmentState> emit) {
-    emit(ScheduleAppoinmentTimeSelected(
-        selectedTime: {"listId": event.listId, "selectedIndex": event.index}));
+    emit(state.copyWith(
+      selectedIndex: event.selectedIndex,
+      selectedListId: event.selectedListId,
+    ));
   }
 }

@@ -1,10 +1,10 @@
-import 'package:beauty/bloc/bloc/auth_bloc.dart';
-import 'package:beauty/bloc/schedule%20appoinment/schedule_appoinment_bloc.dart';
 import 'package:beauty/constants.dart';
 import 'package:beauty/firebase_options.dart';
 import 'package:beauty/repositories/auth_repository.dart';
 import 'package:beauty/router.dart';
+import 'package:beauty/screens/auth/bloc/auth_bloc.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
+import 'package:beauty/screens/schedule%20appoinment/bloc/schedule_appoinment_bloc.dart';
 import 'package:beauty/widgets/bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -10,23 +10,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/bottom_buttons.dart';
 import '../widgets/service_title_and_rating.dart';
 
-class SingleServiceScreen extends StatefulWidget {
+class SingleServiceScreen extends StatelessWidget {
   const SingleServiceScreen({super.key, required this.title});
   static const String routeName = '/single-srvice';
   final String title;
-  @override
-  State<SingleServiceScreen> createState() => _SingleServiceScreenState();
-}
 
-class _SingleServiceScreenState extends State<SingleServiceScreen> {
-  double rating = 3;
-  List<String> imageUrl = [
-    'assets/images/haircut1.jpg',
-    'assets/images/haircut2.jpg',
-    'assets/images/haircut4.jpg',
-  ];
   @override
   Widget build(BuildContext context) {
+    List<String> imageUrl = [
+      'assets/images/haircut1.jpg',
+      'assets/images/haircut2.jpg',
+      'assets/images/haircut4.jpg',
+    ];
+    // double rating = 3;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -40,7 +36,7 @@ class _SingleServiceScreenState extends State<SingleServiceScreen> {
                   children: [
                     ThreeDisplayPictures(imageUrl: imageUrl),
                     SizedBox(height: 20.h),
-                    ServiceTitleAndRating(title: widget.title),
+                    ServiceTitleAndRating(title: title),
                     SizedBox(height: 15.h),
                     const CustomExpansionTile(),
                     SizedBox(height: 15.h),
@@ -155,8 +151,11 @@ class _SingleServiceScreenState extends State<SingleServiceScreen> {
                 ),
               ),
               BottomButtons(onTap: () {
-                Navigator.pushNamed(
-                    context, ScheduleAppoinmentScreen.routeName);
+                Navigator.pushNamed(context, ScheduleAppoinmentScreen.routeName,
+                    arguments: {
+                      "serviceType": "Basic - Rs 250",
+                      "noOfPeople": '2'
+                    });
               }),
             ],
           ),

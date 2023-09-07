@@ -1,9 +1,10 @@
-import 'package:beauty/bloc/bloc/auth_bloc.dart';
 import 'package:beauty/constants.dart';
 import 'package:beauty/screens/auth/screens/auth_screen.dart';
 import 'package:beauty/screens/profile/widgets/profile_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../auth/bloc/auth_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

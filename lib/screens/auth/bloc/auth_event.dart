@@ -1,7 +1,15 @@
 part of 'auth_bloc.dart';
 
-@immutable
 abstract class AuthEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+// auth updated
+class AuthStateUpdated extends AuthEvent {
+  final CountryCode code;
+
+  AuthStateUpdated(this.code);
   @override
   List<Object?> get props => [];
 }

@@ -1,9 +1,10 @@
-import 'package:beauty/bloc/bloc/auth_bloc.dart';
 import 'package:beauty/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
+
+import '../bloc/auth_bloc.dart';
 
 class OtpWidget extends StatefulWidget {
   const OtpWidget(

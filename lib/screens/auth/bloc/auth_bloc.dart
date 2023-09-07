@@ -1,17 +1,19 @@
 import 'dart:async';
 
-import 'package:beauty/repositories/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
+
+import 'package:beauty/repositories/auth_repository.dart';
+import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
-  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+  AuthBloc({required this.authRepository}) : super(const AuthState()) {
+    on<AuthStateUpdated>(onAuthStateUpdated);
     on<SignInRequested>(onSignInRequested);
     on<SignUpRequested>(onSignUpRequested);
     on<GoogleSignInRequested>(onGoogleSignInRequested);
@@ -132,5 +134,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(PhoneAuthError(error: e.toString()));
     }
+  }
+
+  FutureOr<void> onAuthStateUpdated(
+      AuthStateUpdated event, Emitter<AuthState> emit) {
+    emit(state.copyWith(code: event.code));
   }
 }

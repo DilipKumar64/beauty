@@ -1,11 +1,21 @@
 part of 'auth_bloc.dart';
 
-@immutable
-abstract class AuthState extends Equatable {}
+class AuthState extends Equatable {
+  const AuthState(
+      {this.code =
+          const CountryCode(name: 'India', code: 'IN', dialCode: '+91')});
+  final CountryCode code;
 
-class AuthInitial extends AuthState {
+  AuthState copyWith({
+    CountryCode? code,
+  }) {
+    return AuthState(
+      code: code ?? this.code,
+    );
+  }
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [code];
 }
 
 // When the user presses the signin or signup button the state is changed to loading first and then to Authenticated.
@@ -46,7 +56,7 @@ class PhoneAuthError extends AuthState {
 
 class PhoneAuthCodeSentSuccess extends AuthState {
   final String verificationId;
-  PhoneAuthCodeSentSuccess({
+  const PhoneAuthCodeSentSuccess({
     required this.verificationId,
   });
   @override

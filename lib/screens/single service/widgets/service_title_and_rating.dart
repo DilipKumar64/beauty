@@ -5,15 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../constants.dart';
 
 class ServiceTitleAndRating extends StatelessWidget {
-  ServiceTitleAndRating({
+  const ServiceTitleAndRating({
     super.key,
     required this.title,
   });
 
   final String title;
-  double rating = 3;
   @override
   Widget build(BuildContext context) {
+    double rating = 3;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

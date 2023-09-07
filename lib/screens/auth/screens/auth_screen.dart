@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../bloc/bloc/auth_bloc.dart';
+import '../bloc/auth_bloc.dart';
 import '../../../constants.dart';
 import '../../../widgets/bottom_bar.dart';
 import '../widgets/custom_round_login_button.dart';
@@ -85,7 +85,6 @@ class _AuthScreenState extends State<AuthScreen> {
                   phoneNo: '${code.dialCode}${_phoneNoController.text}',
                 );
               }
-
               return Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Column(
@@ -107,9 +106,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                 context: context);
                             // Null check
                             if (local != null) {
-                              setState(() {
-                                code = local;
-                              });
+                              if (!mounted) return;
+                              context
+                                  .read<AuthBloc>()
+                                  .add(AuthStateUpdated(local));
                             }
                           },
                           child: Container(
@@ -123,7 +123,8 @@ class _AuthScreenState extends State<AuthScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('${code.name} (${code.dialCode})'),
+                                Text(
+                                    '${state.code.name} (${state.code.dialCode})'),
                                 const Icon(Icons.keyboard_arrow_down)
                               ],
                             ),

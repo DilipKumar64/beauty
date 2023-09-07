@@ -7,6 +7,14 @@ abstract class ScheduleAppoinmentEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ScheduleAppoinmentUpdatedEvent extends ScheduleAppoinmentEvent {
+  final int selectedListId;
+  final int selectedIndex;
+
+  const ScheduleAppoinmentUpdatedEvent(
+      {required this.selectedListId, required this.selectedIndex});
+}
+
 class ScheduleAppoinmentTimeUpdatedEvent extends ScheduleAppoinmentEvent {
   final int listId;
   final int index;
