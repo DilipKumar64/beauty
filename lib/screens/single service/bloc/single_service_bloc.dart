@@ -12,6 +12,7 @@ class SingleServiceBloc extends Bloc<SingleServiceEvent, SingleServiceState> {
     on<TypeOfServiceUpdated>(onTypeOfServiceUpdated);
     on<SelectServiceTypeToggled>(onSelectServiceTypeToggled);
     on<NewDateSelectedEvent>(onNewDateSelectedEvent);
+    on<NoOfPeoplechanged>(onNoOfPeoplechanged);
   }
 
   FutureOr<void> onTypeOfServiceUpdated(
@@ -27,8 +28,11 @@ class SingleServiceBloc extends Bloc<SingleServiceEvent, SingleServiceState> {
 
   FutureOr<void> onNewDateSelectedEvent(
       NewDateSelectedEvent event, Emitter<SingleServiceState> emit) {
-    print(event.selectedDate);
     emit(state.copyWith(scheduledDate: event.selectedDate));
-    print(state.copyWith(scheduledDate: event.selectedDate));
+  }
+
+  FutureOr<void> onNoOfPeoplechanged(
+      NoOfPeoplechanged event, Emitter<SingleServiceState> emit) {
+    emit(state.copyWith(noOfPeople: event.noOfPeople));
   }
 }

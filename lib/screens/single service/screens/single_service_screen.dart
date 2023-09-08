@@ -17,6 +17,17 @@ class SingleServiceScreen extends StatelessWidget {
   const SingleServiceScreen({super.key, required this.title});
   static const String routeName = '/single-srvice';
   final String title;
+  void proceedToPay(BuildContext context) {
+    String typeOfService =
+        BlocProvider.of<SingleServiceBloc>(context).state.serviceType;
+    if (typeOfService == 'Select Service Type') {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Plese select service type before proceding!')));
+      return;
+    }
+    Navigator.pushNamed(context, ScheduleAppoinmentScreen.routeName,
+        arguments: {"serviceType": "Basic - Rs 250", "noOfPeople": '2'});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,21 +137,7 @@ class SingleServiceScreen extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => Dialog(
-                                              child: Container(
-                                            color: Colors.amber,
-                                            height: 40,
-                                            width: 30,
-                                            child: NumberPicker(
-                                                itemHeight: 40,
-                                                itemWidth: 40,
-                                                minValue: 1,
-                                                maxValue: 10,
-                                                value: 3,
-                                                onChanged: (value) {}),
-                                          )));
+                                  showChooseNoOfPersonDialog(context);
                                 },
                                 child: Row(
                                   mainAxisAlignment:
@@ -150,16 +147,21 @@ class SingleServiceScreen extends StatelessWidget {
                                       Icons.person_sharp,
                                       size: 15,
                                     ),
-                                    Text(
-                                      '2 people',
-                                      style: textTheme.bodySmall!
-                                          .copyWith(color: Colors.black),
+                                    BlocBuilder<SingleServiceBloc,
+                                        SingleServiceState>(
+                                      builder: (context, state) {
+                                        return Text(
+                                          '${state.noOfPeople} people',
+                                          style: textTheme.bodySmall!
+                                              .copyWith(color: Colors.black),
+                                        );
+                                      },
                                     ),
-                                    const Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: Colors.black,
-                                      size: 15,
-                                    )
+                                    // const Icon(
+                                    //   Icons.keyboard_arrow_down_rounded,
+                                    //   color: Colors.black,
+                                    //   size: 15,
+                                    // )
                                   ],
                                 ),
                               ),
@@ -187,16 +189,70 @@ class SingleServiceScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              BottomButtons(onTap: () {
-                Navigator.pushNamed(context, ScheduleAppoinmentScreen.routeName,
-                    arguments: {
-                      "serviceType": "Basic - Rs 250",
-                      "noOfPeople": '2'
-                    });
-              }),
+              BottomButtons(onTap: () => proceedToPay(context)),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> showChooseNoOfPersonDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => BlocBuilder<SingleServiceBloc, SingleServiceState>(
+        builder: (context, state) {
+          return Dialog(
+            child: SizedBox(
+              height: 120.h,
+              width: 100,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        'Select no of people',
+                        style: textTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.normal, fontSize: 19),
+                      ),
+                    ),
+                    SizedBox(height: 5.h),
+                    Center(
+                      child: NumberPicker(
+                        value: state.noOfPeople,
+                        maxValue: 10,
+                        axis: Axis.horizontal,
+                        textStyle: textTheme.bodyLarge!.copyWith(fontSize: 19),
+                        selectedTextStyle: textTheme.bodyLarge!
+                            .copyWith(color: kPrimaryColor, fontSize: 22),
+                        minValue: 1,
+                        onChanged: (val) {
+                          BlocProvider.of<SingleServiceBloc>(context)
+                              .add(NoOfPeoplechanged(noOfPeople: val));
+                        },
+                      ),
+                    ),
+                    Align(
+                      alignment: const Alignment(1, 0),
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Ok',
+                            style: textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.normal, fontSize: 19),
+                          )),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

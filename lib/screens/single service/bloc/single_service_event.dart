@@ -39,3 +39,11 @@ class NewDateSelectedEvent extends SingleServiceEvent {
   @override
   List<Object> get props => [];
 }
+
+class NoOfPeoplechanged extends SingleServiceEvent {
+  final int noOfPeople;
+
+  const NoOfPeoplechanged({required this.noOfPeople});
+  @override
+  List<Object> get props => [noOfPeople];
+}
