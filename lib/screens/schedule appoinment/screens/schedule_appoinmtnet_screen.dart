@@ -1,4 +1,5 @@
 import 'package:beauty/screens/payment/screens/payment_screen.dart';
+import 'package:beauty/screens/payment/widgets/google_pay_button.dart';
 import 'package:beauty/screens/single%20service/widgets/bottom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -175,11 +176,30 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
-                  BottomButtons(
-                    onTap: () {
-                      Navigator.pushNamed(context, PaymentScreen.routeName);
-                    },
-                  )
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    height: 100.h,
+                    color: const Color(0xffe2f5fa),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          GpayButton(
+                              label: args['serviceType']!, totalAmount: '750'),
+                          SizedBox(height: 10.h),
+                          Text(
+                            'Save for later',
+                            style: textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  // BottomButtons(
+                  //   onTap: () {
+                  //     Navigator.pushNamed(context, PaymentScreen.routeName);
+                  //   },
+                  // )
                 ],
               );
             },
