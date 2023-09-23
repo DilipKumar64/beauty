@@ -18,15 +18,22 @@ class SingleServiceScreen extends StatelessWidget {
   static const String routeName = '/single-srvice';
   final String title;
   void proceedToPay(BuildContext context) {
-    String typeOfService =
-        BlocProvider.of<SingleServiceBloc>(context).state.serviceType;
-    if (typeOfService == 'Select Service Type') {
+    SingleServiceState singleServiceState =
+        BlocProvider.of<SingleServiceBloc>(context).state;
+    if (singleServiceState.serviceType == 'Select Service Type') {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Plese select service type before proceding!')));
       return;
     }
     Navigator.pushNamed(context, ScheduleAppoinmentScreen.routeName,
-        arguments: {"serviceType": "Basic - Rs 250", "noOfPeople": '2'});
+        arguments: {
+          "serviceType": singleServiceState.serviceType,
+          "noOfPeople": '${singleServiceState.noOfPeople}'
+        });
+    print({
+      "serviceType": singleServiceState.serviceType,
+      "noOfPeople": '${singleServiceState.noOfPeople}'
+    });
   }
 
   @override

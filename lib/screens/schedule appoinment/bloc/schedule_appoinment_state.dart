@@ -1,22 +1,29 @@
 part of 'schedule_appoinment_bloc.dart';
 
 class ScheduleAppoinmentState extends Equatable {
+  final int selectedListId;
+  final int selectedIndex;
+  final List<GpayPaymentSucessModel> gpayPaymentSucessModelList;
   const ScheduleAppoinmentState({
     this.selectedIndex = 0,
     this.selectedListId = 0,
+    this.gpayPaymentSucessModelList = const <GpayPaymentSucessModel>[],
   });
-  final int selectedListId;
-  final int selectedIndex;
-  @override
-  List<Object> get props => [selectedIndex, selectedListId];
 
   ScheduleAppoinmentState copyWith({
     int? selectedListId,
     int? selectedIndex,
+    List<GpayPaymentSucessModel>? gpayPaymentSucessModelList,
   }) {
     return ScheduleAppoinmentState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       selectedListId: selectedListId ?? this.selectedListId,
+      gpayPaymentSucessModelList:
+          gpayPaymentSucessModelList ?? this.gpayPaymentSucessModelList,
     );
   }
+
+  @override
+  List<Object> get props =>
+      [selectedIndex, selectedListId, gpayPaymentSucessModelList];
 }

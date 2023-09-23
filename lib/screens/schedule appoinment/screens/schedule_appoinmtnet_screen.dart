@@ -29,6 +29,23 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
       '05:00pm',
       '06:00pm',
     ];
+    int extractPrice(String priceString) {
+      int price = 250;
+      int priceStringLength = priceString.length;
+      String temp = '';
+      for (int i = priceStringLength - 3; i <= priceStringLength - 1; i++) {
+        temp = temp + priceString[i];
+      }
+
+      price = int.parse(temp);
+      return price;
+    }
+
+    String returnFinalAmmount(String noOfPeople, String priceString) {
+      String amount = '250';
+      amount = '${int.parse(noOfPeople) * extractPrice(priceString)}';
+      return amount;
+    }
 
     List<String> eveningList = ['07:00pm', '08:00pm', '09:00pm'];
     return SafeArea(
@@ -163,7 +180,7 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w600),
                             ),
                             Text(
-                              '3 x 250 = Rs. 750',
+                              '${args['noOfPeople']!} x ${extractPrice(args['serviceType']!)} = Rs. ${returnFinalAmmount(args['noOfPeople']!, args['serviceType']!)}',
                               style: textTheme.bodyLarge!.copyWith(
                                 fontWeight: FontWeight.w600,
                               ),
@@ -185,7 +202,9 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           GpayButton(
-                              label: args['serviceType']!, totalAmount: '750'),
+                              label: args['serviceType']!,
+                              totalAmount: returnFinalAmmount(
+                                  args['noOfPeople']!, args['serviceType']!)),
                           SizedBox(height: 10.h),
                           Text(
                             'Save for later',

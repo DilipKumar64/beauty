@@ -16,7 +16,7 @@ const String defaultGooglePay = '''{
           }
         },
         "parameters": {
-          "allowedCardNetworks": ["VISA", "MASTERCARD"],
+          "allowedCardNetworks": ["VISA", "MASTERCARD","DISCOVER"],
           "allowedAuthMethods": ["PAN_ONLY", "CRYPTOGRAM_3DS"],
           "billingAddressRequired": true,
           "billingAddressParameters": {

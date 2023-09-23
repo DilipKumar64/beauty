@@ -24,3 +24,11 @@ class ScheduleAppoinmentTimeUpdatedEvent extends ScheduleAppoinmentEvent {
   @override
   List<Object> get props => [listId, index];
 }
+
+class GpayPayPaymentSucessEvent extends ScheduleAppoinmentEvent {
+  final GpayPaymentSucessModel gpayPaymentSucessModel;
+
+  const GpayPayPaymentSucessEvent({
+    required this.gpayPaymentSucessModel,
+  });
+}
