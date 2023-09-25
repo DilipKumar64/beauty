@@ -14,25 +14,29 @@ class GpayPaymentSucessModel {
   int apiVersion;
   int apiVersionMinor;
   PaymentMethodData paymentMethodData;
+  DateTime? paymentTime;
 
-  GpayPaymentSucessModel({
-    required this.apiVersion,
-    required this.apiVersionMinor,
-    required this.paymentMethodData,
-  });
+  GpayPaymentSucessModel(
+      {required this.apiVersion,
+      required this.apiVersionMinor,
+      required this.paymentMethodData,
+      this.paymentTime});
 
   factory GpayPaymentSucessModel.fromJson(Map<String, dynamic> json) =>
       GpayPaymentSucessModel(
-        apiVersion: json["apiVersion"],
-        apiVersionMinor: json["apiVersionMinor"],
-        paymentMethodData:
-            PaymentMethodData.fromJson(json["paymentMethodData"]),
-      );
+          apiVersion: json["apiVersion"],
+          apiVersionMinor: json["apiVersionMinor"],
+          paymentMethodData:
+              PaymentMethodData.fromJson(json["paymentMethodData"]),
+          paymentTime: (json['paymentTime'] != null)
+              ? DateTime(json['paymentTime'])
+              : null);
 
   Map<String, dynamic> toJson() => {
         "apiVersion": apiVersion,
         "apiVersionMinor": apiVersionMinor,
         "paymentMethodData": paymentMethodData.toJson(),
+        "paymentTime": paymentTime
       };
 }
 

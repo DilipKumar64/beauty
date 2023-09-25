@@ -1,12 +1,28 @@
+import 'dart:developer';
+
+import 'package:beauty/modals/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
+  final _firedb = FirebaseFirestore.instance.collection('users');
+  Future<void> writeUserDateToFirebase(UserCredential firebaseUser) async {
+    UserModel userModel = UserModel(
+        uid: firebaseUser.user!.uid,
+        name: firebaseUser.user!.displayName,
+        email: firebaseUser.user!.email,
+        phoneNumber: firebaseUser.user!.phoneNumber);
+
+    await _firedb.doc(firebaseUser.user!.uid).set(userModel.toMap());
+  }
+
   Future<void> signUp({required String email, required String password}) async {
     try {
-      await FirebaseAuth.instance
+      UserCredential firebaseUser = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      await writeUserDateToFirebase(firebaseUser);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');
@@ -48,16 +64,16 @@ class AuthRepository {
 
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
-      print(googleAuth?.accessToken);
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential firebaseUser =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      writeUserDateToFirebase(firebaseUser);
     } catch (e) {
-      print(e);
       throw Exception(e.toString());
     }
   }

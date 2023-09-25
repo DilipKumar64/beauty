@@ -54,174 +54,184 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(
               left: 24.0, right: 24.0, top: 24.0, bottom: 8),
-          child: BlocBuilder<ScheduleAppoinmentBloc, ScheduleAppoinmentState>(
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      'Choose time',
-                      style: textTheme.headlineSmall!
-                          .copyWith(fontWeight: FontWeight.normal),
+          child: BlocListener<ScheduleAppoinmentBloc, ScheduleAppoinmentState>(
+            listener: (context, state) {
+              if (state is ScheduleAppoinmentErrorState) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+            },
+            child: BlocBuilder<ScheduleAppoinmentBloc, ScheduleAppoinmentState>(
+              builder: (context, state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        'Choose time',
+                        style: textTheme.headlineSmall!
+                            .copyWith(fontWeight: FontWeight.normal),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 30.h),
-                  Text(
-                    'Choose time period',
-                    style: textTheme.titleMedium!.copyWith(fontSize: 22),
-                  ),
-                  const Divider(thickness: 1, color: Colors.black45),
-                  SizedBox(height: 10.h),
-                  Text(
-                    'Morning',
-                    style: textTheme.bodyLarge!
-                        .copyWith(fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10.h),
-                  SizedBox(
-                      height: 40.h,
-                      child: AppoinmentTme(
-                        state: state,
-                        selectedIndex: state.selectedIndex,
-                        selectedListId: state.selectedListId,
-                        listId: 0,
-                        list: morningList,
-                      )),
-                  SizedBox(height: 15.h),
-                  Text(
-                    'Afternoon',
-                    style: textTheme.bodyLarge!
-                        .copyWith(fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10.h),
-                  SizedBox(
-                      height: 95.h,
-                      child: AppoinmentTme(
-                        state: state,
-                        selectedIndex: state.selectedIndex,
-                        selectedListId: state.selectedListId,
-                        listId: 1,
-                        list: afternonList,
-                      )),
-                  SizedBox(height: 15.h),
-                  Text(
-                    'Evening',
-                    style: textTheme.bodyLarge!
-                        .copyWith(fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10.h),
-                  SizedBox(
-                      height: 40.h,
-                      child: AppoinmentTme(
-                        selectedIndex: state.selectedIndex,
-                        selectedListId: state.selectedListId,
-                        listId: 2,
-                        list: eveningList,
-                        state: state,
-                      )),
-                  SizedBox(height: 10.h),
-                  const Divider(thickness: 1, color: Colors.black45),
-                  SizedBox(height: 10.h),
-                  Text(
-                    'Service details',
-                    style: textTheme.bodyLarge,
-                  ),
-                  SizedBox(height: 15.h),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Service type',
-                              style: textTheme.bodyLarge!.copyWith(
-                                  letterSpacing: 1,
-                                  color: const Color.fromARGB(255, 97, 97, 97)),
-                            ),
-                            Text(
-                              args['serviceType']!,
-                              style: textTheme.bodyLarge!.copyWith(
-                                color: const Color.fromARGB(255, 97, 97, 97),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 10.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'No.of people',
-                              style: textTheme.bodyLarge!.copyWith(
-                                  letterSpacing: 1,
-                                  color: const Color.fromARGB(255, 97, 97, 97)),
-                            ),
-                            Text(
-                              args['noOfPeople']!,
-                              style: textTheme.bodyLarge!.copyWith(
-                                color: const Color.fromARGB(255, 97, 97, 97),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 10.h),
-                        const Divider(thickness: 2, color: Colors.black45),
-                        SizedBox(height: 5.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Total',
-                              style: textTheme.bodyLarge!.copyWith(
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              '${args['noOfPeople']!} x ${extractPrice(args['serviceType']!)} = Rs. ${returnFinalAmmount(args['noOfPeople']!, args['serviceType']!)}',
-                              style: textTheme.bodyLarge!.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 5.h),
-                        const Divider(thickness: 2, color: Colors.black45),
-                      ],
+                    SizedBox(height: 30.h),
+                    Text(
+                      'Choose time period',
+                      style: textTheme.titleMedium!.copyWith(fontSize: 22),
                     ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    height: 100.h,
-                    color: const Color(0xffe2f5fa),
-                    child: GestureDetector(
-                      onTap: () {},
+                    const Divider(thickness: 1, color: Colors.black45),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'Morning',
+                      style: textTheme.bodyLarge!
+                          .copyWith(fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 10.h),
+                    SizedBox(
+                        height: 40.h,
+                        child: AppoinmentTme(
+                          state: state,
+                          selectedIndex: state.selectedIndex,
+                          selectedListId: state.selectedListId,
+                          listId: 0,
+                          list: morningList,
+                        )),
+                    SizedBox(height: 15.h),
+                    Text(
+                      'Afternoon',
+                      style: textTheme.bodyLarge!
+                          .copyWith(fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 10.h),
+                    SizedBox(
+                        height: 95.h,
+                        child: AppoinmentTme(
+                          state: state,
+                          selectedIndex: state.selectedIndex,
+                          selectedListId: state.selectedListId,
+                          listId: 1,
+                          list: afternonList,
+                        )),
+                    SizedBox(height: 15.h),
+                    Text(
+                      'Evening',
+                      style: textTheme.bodyLarge!
+                          .copyWith(fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 10.h),
+                    SizedBox(
+                        height: 40.h,
+                        child: AppoinmentTme(
+                          selectedIndex: state.selectedIndex,
+                          selectedListId: state.selectedListId,
+                          listId: 2,
+                          list: eveningList,
+                          state: state,
+                        )),
+                    SizedBox(height: 10.h),
+                    const Divider(thickness: 1, color: Colors.black45),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'Service details',
+                      style: textTheme.bodyLarge,
+                    ),
+                    SizedBox(height: 15.h),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
                       child: Column(
                         children: [
-                          GpayButton(
-                              label: args['serviceType']!,
-                              totalAmount: returnFinalAmmount(
-                                  args['noOfPeople']!, args['serviceType']!)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Service type',
+                                style: textTheme.bodyLarge!.copyWith(
+                                    letterSpacing: 1,
+                                    color:
+                                        const Color.fromARGB(255, 97, 97, 97)),
+                              ),
+                              Text(
+                                args['serviceType']!,
+                                style: textTheme.bodyLarge!.copyWith(
+                                  color: const Color.fromARGB(255, 97, 97, 97),
+                                ),
+                              )
+                            ],
+                          ),
                           SizedBox(height: 10.h),
-                          Text(
-                            'Save for later',
-                            style: textTheme.bodyMedium,
-                          )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'No.of people',
+                                style: textTheme.bodyLarge!.copyWith(
+                                    letterSpacing: 1,
+                                    color:
+                                        const Color.fromARGB(255, 97, 97, 97)),
+                              ),
+                              Text(
+                                args['noOfPeople']!,
+                                style: textTheme.bodyLarge!.copyWith(
+                                  color: const Color.fromARGB(255, 97, 97, 97),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
+                          const Divider(thickness: 2, color: Colors.black45),
+                          SizedBox(height: 5.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Total',
+                                style: textTheme.bodyLarge!.copyWith(
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                '${args['noOfPeople']!} x ${extractPrice(args['serviceType']!)} = Rs. ${returnFinalAmmount(args['noOfPeople']!, args['serviceType']!)}',
+                                style: textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 5.h),
+                          const Divider(thickness: 2, color: Colors.black45),
                         ],
                       ),
                     ),
-                  ),
-                  // BottomButtons(
-                  //   onTap: () {
-                  //     Navigator.pushNamed(context, PaymentScreen.routeName);
-                  //   },
-                  // )
-                ],
-              );
-            },
+                    SizedBox(height: 5.h),
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      height: 100.h,
+                      color: const Color(0xffe2f5fa),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          children: [
+                            GpayButton(
+                                label: args['serviceType']!,
+                                totalAmount: returnFinalAmmount(
+                                    args['noOfPeople']!, args['serviceType']!)),
+                            SizedBox(height: 10.h),
+                            Text(
+                              'Save for later',
+                              style: textTheme.bodyMedium,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    // BottomButtons(
+                    //   onTap: () {
+                    //     Navigator.pushNamed(context, PaymentScreen.routeName);
+                    //   },
+                    // )
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

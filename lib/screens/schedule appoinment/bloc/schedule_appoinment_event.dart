@@ -7,6 +7,14 @@ abstract class ScheduleAppoinmentEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ScheduleAppoinmentErrorEvent extends ScheduleAppoinmentEvent {
+  final String errorMessage;
+
+  const ScheduleAppoinmentErrorEvent({required this.errorMessage});
+  @override
+  List<Object> get props => [errorMessage];
+}
+
 class ScheduleAppoinmentUpdatedEvent extends ScheduleAppoinmentEvent {
   final int selectedListId;
   final int selectedIndex;

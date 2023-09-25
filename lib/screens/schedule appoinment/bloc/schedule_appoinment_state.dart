@@ -27,3 +27,15 @@ class ScheduleAppoinmentState extends Equatable {
   List<Object> get props =>
       [selectedIndex, selectedListId, gpayPaymentSucessModelList];
 }
+
+class ScheduleAppoinmentErrorState extends ScheduleAppoinmentState {
+  final String errorMessage;
+
+  const ScheduleAppoinmentErrorState(
+      {super.selectedIndex,
+      super.selectedListId,
+      super.gpayPaymentSucessModelList,
+      required this.errorMessage});
+  @override
+  List<Object> get props => [errorMessage];
+}

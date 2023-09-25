@@ -111,6 +111,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         verificationId: event.verificationId,
         smsCode: event.otpCode,
       );
+
       add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
     } catch (e) {
       emit(PhoneAuthError(error: e.toString()));
@@ -126,6 +127,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           .signInWithCredential(event.credential)
           .then((user) {
         if (user.user != null) {
+          authRepository.writeUserDateToFirebase(user);
           emit(Authenticated());
         }
       });

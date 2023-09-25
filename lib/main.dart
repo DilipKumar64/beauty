@@ -1,6 +1,7 @@
 import 'package:beauty/constants.dart';
 import 'package:beauty/firebase_options.dart';
 import 'package:beauty/repositories/auth_repository.dart';
+import 'package:beauty/repositories/schedule_appoinment_repository.dart';
 import 'package:beauty/router.dart';
 import 'package:beauty/screens/auth/bloc/auth_bloc.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
@@ -40,8 +41,12 @@ class _MyAppState extends State<MyApp> {
         splitScreenMode: true,
         // Use builder only if you need to use library outside ScreenUtilInit context
         builder: (_, child) {
-          return RepositoryProvider(
-            create: (context) => AuthRepository(),
+          return MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider(create: (context) => AuthRepository()),
+              RepositoryProvider(
+                  create: (context) => ScheduleAppoinmentRepository())
+            ],
             child: MultiBlocProvider(
               providers: [
                 BlocProvider(
@@ -49,7 +54,11 @@ class _MyAppState extends State<MyApp> {
                         authRepository:
                             RepositoryProvider.of<AuthRepository>(context))),
                 BlocProvider(create: (context) => SingleServiceBloc()),
-                BlocProvider(create: ((context) => ScheduleAppoinmentBloc())),
+                BlocProvider(
+                    create: ((context) => ScheduleAppoinmentBloc(
+                        repository:
+                            RepositoryProvider.of<ScheduleAppoinmentRepository>(
+                                context)))),
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
