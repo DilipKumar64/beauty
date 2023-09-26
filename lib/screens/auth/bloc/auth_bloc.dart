@@ -125,9 +125,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await FirebaseAuth.instance
           .signInWithCredential(event.credential)
-          .then((user) {
-        if (user.user != null) {
-          authRepository.writeUserDateToFirebase(user);
+          .then((userCredential) {
+        if (userCredential.user != null) {
+          authRepository.writeUserDateToFirebase(userCredential.user!);
           emit(Authenticated());
         }
       });

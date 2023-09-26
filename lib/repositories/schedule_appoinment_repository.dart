@@ -13,7 +13,14 @@ class ScheduleAppoinmentRepository {
       userDocRef.update({"paymentId": docRef.id});
     } catch (e) {
       Exception(e.toString());
-      return null;
     }
+  }
+
+  Future<void> saveAppoinmentDataToFirebase(Map<String, String> data) async {
+    final docRef = db.collection("appoinments").doc();
+    await docRef.set(data);
+    final userDocRef =
+        db.collection('users').doc(FirebaseAuth.instance.currentUser!.uid);
+    await userDocRef.update({"appoinmentId": docRef.id});
   }
 }

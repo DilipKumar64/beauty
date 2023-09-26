@@ -1,5 +1,6 @@
 import 'package:beauty/screens/payment/screens/payment_screen.dart';
 import 'package:beauty/screens/payment/widgets/google_pay_button.dart';
+import 'package:beauty/screens/single%20service/bloc/single_service_bloc.dart';
 import 'package:beauty/screens/single%20service/widgets/bottom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,15 +20,24 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
   // @override
   @override
   Widget build(BuildContext context) {
-    List<String> morningList = ['09:00am', '10:00am', '11:00am'];
+    List<TimeOfDay> morningList = [
+      const TimeOfDay(hour: 9, minute: 0),
+      const TimeOfDay(hour: 10, minute: 0),
+      const TimeOfDay(hour: 11, minute: 0),
+    ];
 
-    List<String> afternonList = [
-      '01:00pm',
-      '02:00pm',
-      '03:00pm',
-      '04:00pm',
-      '05:00pm',
-      '06:00pm',
+    List<TimeOfDay> afternonList = [
+      const TimeOfDay(hour: 13, minute: 0),
+      const TimeOfDay(hour: 14, minute: 0),
+      const TimeOfDay(hour: 15, minute: 0),
+      const TimeOfDay(hour: 16, minute: 0),
+      const TimeOfDay(hour: 17, minute: 0),
+      const TimeOfDay(hour: 18, minute: 0),
+    ];
+    List<TimeOfDay> eveningList = [
+      const TimeOfDay(hour: 19, minute: 0),
+      const TimeOfDay(hour: 20, minute: 0),
+      const TimeOfDay(hour: 21, minute: 0),
     ];
     int extractPrice(String priceString) {
       int price = 250;
@@ -47,7 +57,6 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
       return amount;
     }
 
-    List<String> eveningList = ['07:00pm', '08:00pm', '09:00pm'];
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
@@ -59,6 +68,18 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
               if (state is ScheduleAppoinmentErrorState) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              } else if (state is GpaySucessState) {
+                SingleServiceState singleServiceState =
+                    context.read<SingleServiceBloc>().state;
+                context.read<ScheduleAppoinmentBloc>().add(
+                      SaveAppoinmentDataToFirebaseEvent(
+                          noOfPeople: args['noOfPeople']!,
+                          serviceType: args['serviceType']!,
+                          totalPrice: returnFinalAmmount(
+                              args['noOfPeople']!, args['serviceType']!),
+                          date: singleServiceState.scheduledDate,
+                          time: state.time),
+                    );
               }
             },
             child: BlocBuilder<ScheduleAppoinmentBloc, ScheduleAppoinmentState>(

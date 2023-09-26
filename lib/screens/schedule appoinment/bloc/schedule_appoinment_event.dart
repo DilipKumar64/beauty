@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'schedule_appoinment_bloc.dart';
 
 abstract class ScheduleAppoinmentEvent extends Equatable {
@@ -18,9 +19,13 @@ class ScheduleAppoinmentErrorEvent extends ScheduleAppoinmentEvent {
 class ScheduleAppoinmentUpdatedEvent extends ScheduleAppoinmentEvent {
   final int selectedListId;
   final int selectedIndex;
+  final TimeOfDay time;
 
-  const ScheduleAppoinmentUpdatedEvent(
-      {required this.selectedListId, required this.selectedIndex});
+  const ScheduleAppoinmentUpdatedEvent({
+    required this.selectedListId,
+    required this.selectedIndex,
+    required this.time,
+  });
 }
 
 class ScheduleAppoinmentTimeUpdatedEvent extends ScheduleAppoinmentEvent {
@@ -38,5 +43,20 @@ class GpayPayPaymentSucessEvent extends ScheduleAppoinmentEvent {
 
   const GpayPayPaymentSucessEvent({
     required this.gpayPaymentSucessModel,
+  });
+}
+
+class SaveAppoinmentDataToFirebaseEvent extends ScheduleAppoinmentEvent {
+  final String serviceType;
+  final String noOfPeople;
+  final String totalPrice;
+  final TimeOfDay time;
+  final DateTime date;
+  const SaveAppoinmentDataToFirebaseEvent({
+    required this.serviceType,
+    required this.noOfPeople,
+    required this.totalPrice,
+    required this.time,
+    required this.date,
   });
 }

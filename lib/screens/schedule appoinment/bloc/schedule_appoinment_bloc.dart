@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:beauty/modals/gpay_payment_sucess_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -18,14 +20,15 @@ class ScheduleAppoinmentBloc
     on<ScheduleAppoinmentUpdatedEvent>(_timeUpdated);
     on<GpayPayPaymentSucessEvent>(onGpayPayPaymentSucessEvent);
     on<ScheduleAppoinmentErrorEvent>(onScheduleAppoinmentErrorEvent);
+    on<SaveAppoinmentDataToFirebaseEvent>(onSaveAppoinmentDataToFirebaseEvent);
   }
 
   void _timeUpdated(ScheduleAppoinmentUpdatedEvent event,
       Emitter<ScheduleAppoinmentState> emit) {
     emit(state.copyWith(
-      selectedIndex: event.selectedIndex,
-      selectedListId: event.selectedListId,
-    ));
+        selectedIndex: event.selectedIndex,
+        selectedListId: event.selectedListId,
+        time: event.time));
   }
 
   void onGpayPayPaymentSucessEvent(GpayPayPaymentSucessEvent event,
@@ -37,6 +40,9 @@ class ScheduleAppoinmentBloc
     try {
       await repository
           .storePaymentInfoToFirebase(gpayPaymentSucessModelList[0]);
+      log(state.time.toString());
+
+      emit(GpaySucessState(newTime: state.time));
     } catch (e) {
       log(e.toString());
     }
@@ -47,5 +53,22 @@ class ScheduleAppoinmentBloc
   void onScheduleAppoinmentErrorEvent(ScheduleAppoinmentErrorEvent event,
       Emitter<ScheduleAppoinmentState> emit) {
     emit(ScheduleAppoinmentErrorState(errorMessage: event.errorMessage));
+  }
+
+  FutureOr<void> onSaveAppoinmentDataToFirebaseEvent(
+      SaveAppoinmentDataToFirebaseEvent event,
+      Emitter<ScheduleAppoinmentState> emit) {
+    DateTime date = event.date;
+    TimeOfDay time = event.time;
+    DateTime finalDateTime =
+        DateTime(date.year, date.month, date.day, time.hour, time.minute);
+
+    Map<String, String> data = {
+      "appoinmentTime": finalDateTime.toString(),
+      "noOfPeople": event.noOfPeople,
+      "serviceType": event.serviceType,
+      "totalPrice": event.totalPrice
+    };
+    repository.saveAppoinmentDataToFirebase(data);
   }
 }

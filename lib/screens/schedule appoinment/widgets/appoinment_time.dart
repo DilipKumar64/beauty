@@ -14,7 +14,7 @@ class AppoinmentTme extends StatelessWidget {
     required this.selectedIndex,
     required this.state,
   });
-  final List<String> list;
+  final List<TimeOfDay> list;
   final int listId;
   final int selectedListId;
   final int selectedIndex;
@@ -38,7 +38,9 @@ class AppoinmentTme extends StatelessWidget {
                 onTap: () {
                   BlocProvider.of<ScheduleAppoinmentBloc>(context).add(
                       ScheduleAppoinmentUpdatedEvent(
-                          selectedIndex: index, selectedListId: listId));
+                          selectedIndex: index,
+                          selectedListId: listId,
+                          time: list[index]));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -52,7 +54,7 @@ class AppoinmentTme extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5)),
                     child: Center(
                       child: Text(
-                        list[index],
+                        list[index].format(context),
                         style: textTheme.bodyMedium!.copyWith(
                             color: (listId == selectedListId &&
                                     selectedIndex == index)
