@@ -3,6 +3,7 @@ import 'package:beauty/firebase_options.dart';
 import 'package:beauty/repositories/auth_repository.dart';
 import 'package:beauty/repositories/schedule_appoinment_repository.dart';
 import 'package:beauty/router.dart';
+import 'package:beauty/screens/admin/bloc/admin_pannel_bloc.dart';
 import 'package:beauty/screens/auth/bloc/auth_bloc.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
 import 'package:beauty/screens/schedule%20appoinment/bloc/schedule_appoinment_bloc.dart';
@@ -56,9 +57,10 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (context) => SingleServiceBloc()),
                 BlocProvider(
                     create: ((context) => ScheduleAppoinmentBloc(
-                        repository:
-                            RepositoryProvider.of<ScheduleAppoinmentRepository>(
-                                context)))),
+                          repository: RepositoryProvider.of<
+                              ScheduleAppoinmentRepository>(context),
+                        ))),
+                BlocProvider(create: (context) => AdminPannelBloc())
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,

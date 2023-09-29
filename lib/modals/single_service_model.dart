@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 class SingleServiceModal {
+  String logoUrl;
   String name;
   String description;
   List<String> imagesList;
   SingleServiceModal({
+    required this.logoUrl,
     required this.name,
     required this.description,
     required this.imagesList,
@@ -20,6 +22,7 @@ class SingleServiceModal {
 
   factory SingleServiceModal.fromMap(Map<String, dynamic> map) {
     return SingleServiceModal(
+      logoUrl: map['logoUrl'] ?? '',
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       imagesList: List<String>.from(map['imagesList']),

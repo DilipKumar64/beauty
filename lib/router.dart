@@ -1,3 +1,5 @@
+import 'package:beauty/screens/admin/screens/add_service_screen.dart';
+import 'package:beauty/screens/admin/screens/admin_pannel_secreen.dart';
 import 'package:beauty/screens/auth/screens/auth_screen.dart';
 import 'package:beauty/screens/auth/screens/email_sign_in_screen.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
@@ -57,6 +59,16 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => ScheduleAppoinmentScreen(args: args),
+      );
+    case AdminPannelScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AdminPannelScreen(),
+      );
+    case AddServiceScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddServiceScreen(),
       );
     default:
       return MaterialPageRoute(

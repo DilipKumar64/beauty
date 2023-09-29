@@ -1,4 +1,5 @@
 import 'package:beauty/constants.dart';
+import 'package:beauty/screens/admin/screens/admin_pannel_secreen.dart';
 import 'package:beauty/screens/auth/screens/auth_screen.dart';
 import 'package:beauty/screens/profile/widgets/profile_tile.dart';
 import 'package:flutter/material.dart';
@@ -101,11 +102,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'Sign out',
                     iconData: Icons.logout_rounded,
                     fun: () {
-                      print('dfsda');
                       BlocProvider.of<AuthBloc>(context)
                           .add(SignOutRequested());
                     }),
               ),
+              ProfileTile(
+                  title: 'Admin pannel',
+                  iconData: Icons.admin_panel_settings_outlined,
+                  fun: () {
+                    Navigator.pushNamed(context, AdminPannelScreen.routeName);
+                  }),
             ],
           ),
         ),

@@ -7,13 +7,16 @@ class UserModel {
   final String? name;
   final String? paymentId;
   final String? appoinmentId;
-  UserModel(
-      {required this.uid,
-      this.phoneNumber,
-      this.email,
-      this.name,
-      this.paymentId,
-      this.appoinmentId});
+  final bool isAdmin;
+  UserModel({
+    required this.uid,
+    this.phoneNumber,
+    this.email,
+    this.name,
+    this.paymentId,
+    this.appoinmentId,
+    required this.isAdmin,
+  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -22,7 +25,8 @@ class UserModel {
       'email': email,
       'name': name,
       'paymentId': paymentId,
-      'appoinmentId': appoinmentId
+      'appoinmentId': appoinmentId,
+      'isAdmin': isAdmin,
     };
   }
 
@@ -35,7 +39,8 @@ class UserModel {
         name: map['name'] != null ? map['name'] as String : null,
         paymentId: map['paymentId'] != null ? map['paymentId'] as String : null,
         appoinmentId:
-            map['appoinmentId'] != null ? map['appoinmentId'] as String : null);
+            map['appoinmentId'] != null ? map['appoinmentId'] as String : null,
+        isAdmin: map['isAdmin'] != null ? map['isAdmin'] as bool : false);
   }
 
   String toJson() => json.encode(toMap());

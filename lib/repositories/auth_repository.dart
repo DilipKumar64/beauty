@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:beauty/modals/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +11,8 @@ class AuthRepository {
         uid: firebaseUser.uid,
         name: firebaseUser.displayName,
         email: firebaseUser.email,
-        phoneNumber: firebaseUser.phoneNumber);
+        phoneNumber: firebaseUser.phoneNumber,
+        isAdmin: false);
     _firedb.doc(firebaseUser.uid).get().then((doc) async {
       if (!doc.exists) {
         await _firedb.doc(firebaseUser.uid).set(userModel.toMap());

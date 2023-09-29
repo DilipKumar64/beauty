@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants.dart';
 
@@ -18,7 +19,7 @@ class CarouselImage extends StatelessWidget {
       ).toList(),
       options: CarouselOptions(
         viewportFraction: 1,
-        height: 130,
+        height: 130.h,
         autoPlay: true,
       ),
     );

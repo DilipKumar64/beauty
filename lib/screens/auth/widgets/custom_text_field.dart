@@ -6,11 +6,13 @@ class CustomTextField extends StatefulWidget {
     required this.isPassword,
     required this.controller,
     required this.hintText,
+    this.maxLines = 1,
   });
 
   final TextEditingController controller;
   final bool isPassword;
   final String hintText;
+  final int maxLines;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -24,6 +26,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       controller: widget.controller,
       obscureText: (widget.isPassword) ? obscureText : false,
+      maxLines: widget.maxLines,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "password is required";
