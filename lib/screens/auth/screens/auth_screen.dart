@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../bloc/auth_bloc.dart';
-import '../../../constants.dart';
+import '../../../utils/constants.dart';
 import '../../../widgets/bottom_bar.dart';
 import '../widgets/custom_round_login_button.dart';
 

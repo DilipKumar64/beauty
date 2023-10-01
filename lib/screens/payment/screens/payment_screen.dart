@@ -3,7 +3,7 @@ import 'dart:developer' as lgr;
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 
-import '../../../payment_config.dart';
+import '../../../utils/payment_config.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});

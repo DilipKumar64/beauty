@@ -1,11 +1,9 @@
+import 'package:beauty/utils/constants.dart';
 import 'package:beauty/modals/user_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
-  final _firebaseAuth = FirebaseAuth.instance;
-  final _firedb = FirebaseFirestore.instance.collection('users');
   Future<void> writeUserDateToFirebase(User firebaseUser) async {
     UserModel userModel = UserModel(
         uid: firebaseUser.uid,
@@ -13,9 +11,16 @@ class AuthRepository {
         email: firebaseUser.email,
         phoneNumber: firebaseUser.phoneNumber,
         isAdmin: false);
-    _firedb.doc(firebaseUser.uid).get().then((doc) async {
+    firebaseFirestore
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .get()
+        .then((doc) async {
       if (!doc.exists) {
-        await _firedb.doc(firebaseUser.uid).set(userModel.toMap());
+        await firebaseFirestore
+            .collection('users')
+            .doc(firebaseUser.uid)
+            .set(userModel.toJson());
       }
     });
   }
@@ -54,7 +59,7 @@ class AuthRepository {
 
   Future<void> signOut() async {
     try {
-      await _firebaseAuth.signOut();
+      await firebaseAuth.signOut();
     } catch (e) {
       throw Exception(e);
     }
@@ -87,7 +92,7 @@ class AuthRepository {
     required Function(String, int?) codeSent,
     required Function(String) codeAutoRetrievalTimeout,
   }) async {
-    await _firebaseAuth.verifyPhoneNumber(
+    await firebaseAuth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,

@@ -1,16 +1,34 @@
 import 'dart:io';
 
 import 'package:beauty/modals/single_service_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:beauty/utils/custom_exception.dart';
+import 'package:uuid/uuid.dart';
+
+import '../utils/constants.dart';
 
 class AdminPannelRepository {
-  final _db = FirebaseFirestore.instance;
-  final storage = FirebaseStorage.instance.ref();
-  Future<SingleServiceModal?> getServicesDetails(
+  Future<SingleServiceModal?> uploadServicesDetails(
       Map<String, dynamic> data) async {
-    return null;
+    try {
+      final docRef = firebaseFirestore.collection('services').doc(data['name']);
+      await docRef.set(data);
+      return SingleServiceModal.fromJson(data);
+    } catch (e) {
+      throw CustomException(
+          message: 'Error in upoloading servce details: ${e.toString()}');
+    }
   }
 
-  Future<void> uploadImageToFirebase(File file) async {}
+  Future<String?> uploadImageToFirebase(File file) async {
+    String imageName = const Uuid().v1();
+    final doc = firebaseStorage.child('/serviceImages/$imageName.jpeg');
+    try {
+      await doc.putFile(file);
+      String downLoadUrl = await doc.getDownloadURL();
+      return downLoadUrl;
+    } catch (e) {
+      Exception(e.toString());
+      return null;
+    }
+  }
 }

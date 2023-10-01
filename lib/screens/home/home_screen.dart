@@ -1,9 +1,12 @@
+import 'package:beauty/screens/home/bloc/home_bloc.dart';
+import 'package:beauty/screens/home/helper_component.dart';
 import 'package:beauty/screens/home/widgets/all_service_button.dart';
 import 'package:beauty/screens/home/widgets/carousal_image.dart';
 import 'package:beauty/screens/home/widgets/catagory_component.dart';
 import 'package:beauty/screens/home/widgets/custom_app_bar.dart';
 import 'package:beauty/screens/home/widgets/offer_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,19 +28,29 @@ class _HomeScreenState extends State<HomeScreen> {
             right: 16.0,
             top: 24.0,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CustomAppBar(),
-              const SizedBox(height: 20),
-              const CarouselImage(),
-              const SizedBox(height: 40),
-              const CatagoryComponent(),
-              const SizedBox(height: 20),
-              const AllServiceButton(),
-              const SizedBox(height: 20),
-              OfferCard(size: size)
-            ],
+          child: BlocConsumer<HomeBloc, HomeState>(
+            listener: (context, state) {
+              if (state.homeStateStatus == HomeStateStatus.failed) {
+                print('here========================');
+                HelperComponent.showSnackbar(context, state.errorMessage!);
+              }
+            },
+            builder: (context, state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CustomAppBar(),
+                  const SizedBox(height: 20),
+                  const CarouselImage(),
+                  const SizedBox(height: 40),
+                  const CatagoryComponent(),
+                  const SizedBox(height: 20),
+                  const AllServiceButton(),
+                  const SizedBox(height: 20),
+                  OfferCard(size: size)
+                ],
+              );
+            },
           ),
         ),
       ),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class SingleServiceModal {
   String logoUrl;
   String name;
@@ -12,25 +10,21 @@ class SingleServiceModal {
     required this.imagesList,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'description': description,
+      'logoUrl': logoUrl,
       'imagesList': imagesList,
     };
   }
 
-  factory SingleServiceModal.fromMap(Map<String, dynamic> map) {
+  factory SingleServiceModal.fromJson(Map<String, dynamic> json) {
     return SingleServiceModal(
-      logoUrl: map['logoUrl'] ?? '',
-      name: map['name'] ?? '',
-      description: map['description'] ?? '',
-      imagesList: List<String>.from(map['imagesList']),
+      logoUrl: json['logoUrl'],
+      name: json['name'],
+      description: json['description'],
+      imagesList: List<String>.from(json['imagesList']),
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory SingleServiceModal.fromJson(String source) =>
-      SingleServiceModal.fromMap(json.decode(source));
 }

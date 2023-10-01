@@ -1,5 +1,4 @@
 import 'package:beauty/screens/auth/widgets/custom_text_field.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,8 +87,10 @@ class AddServiceScreen extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
         onPressed: () {
-          context.read<AdminPannelBloc>().add(
-              AddServiceEvent(name: name.text, description: description.text));
+          context.read<AdminPannelBloc>().add(AddServiceEvent(
+              name: name.text,
+              description: description.text,
+              context: context));
         },
         child: Text(
           'Add service',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../constants.dart';
+import '../../../utils/constants.dart';
 import '../bloc/schedule_appoinment_bloc.dart';
 
 class AppoinmentTme extends StatelessWidget {

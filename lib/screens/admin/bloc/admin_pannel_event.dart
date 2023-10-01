@@ -18,6 +18,11 @@ class AddPictureEvent extends AdminPannelEvent {
 class AddServiceEvent extends AdminPannelEvent {
   final String name;
   final String description;
+  final BuildContext context;
 
-  const AddServiceEvent({required this.name, required this.description});
+  const AddServiceEvent({
+    required this.name,
+    required this.description,
+    required this.context,
+  });
 }

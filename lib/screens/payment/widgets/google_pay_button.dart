@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pay/pay.dart';
-import 'dart:developer' as lgr;
 
-import '../../../payment_config.dart';
+import '../../../utils/payment_config.dart';
 
 class GpayButton extends StatelessWidget {
   const GpayButton({super.key, required this.label, required this.totalAmount});

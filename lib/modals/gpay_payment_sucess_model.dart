@@ -1,15 +1,3 @@
-// To parse this JSON data, do
-//
-//     final GpayPaymentSucessModel = GpayPaymentSucessModelFromJson(jsonString);
-
-import 'dart:convert';
-
-GpayPaymentSucessModel GpayPaymentSucessModelFromJson(String str) =>
-    GpayPaymentSucessModel.fromJson(json.decode(str));
-
-String GpayPaymentSucessModelToJson(GpayPaymentSucessModel data) =>
-    json.encode(data.toJson());
-
 class GpayPaymentSucessModel {
   int apiVersion;
   int apiVersionMinor;

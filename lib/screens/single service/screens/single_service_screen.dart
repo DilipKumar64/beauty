@@ -1,4 +1,4 @@
-import 'package:beauty/constants.dart';
+import 'package:beauty/utils/constants.dart';
 import 'package:beauty/screens/schedule%20appoinment/screens/schedule_appoinmtnet_screen.dart';
 import 'package:beauty/screens/single%20service/bloc/single_service_bloc.dart';
 import 'package:beauty/screens/single%20service/widgets/three_display_pictures.dart';
@@ -30,10 +30,6 @@ class SingleServiceScreen extends StatelessWidget {
           "serviceType": singleServiceState.serviceType,
           "noOfPeople": '${singleServiceState.noOfPeople}'
         });
-    print({
-      "serviceType": singleServiceState.serviceType,
-      "noOfPeople": '${singleServiceState.noOfPeople}'
-    });
   }
 
   @override

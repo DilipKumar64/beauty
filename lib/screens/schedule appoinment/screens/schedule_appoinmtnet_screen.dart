@@ -1,12 +1,10 @@
-import 'package:beauty/screens/payment/screens/payment_screen.dart';
 import 'package:beauty/screens/payment/widgets/google_pay_button.dart';
 import 'package:beauty/screens/single%20service/bloc/single_service_bloc.dart';
-import 'package:beauty/screens/single%20service/widgets/bottom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../constants.dart';
+import '../../../utils/constants.dart';
 import '../bloc/schedule_appoinment_bloc.dart';
 import '../widgets/appoinment_time.dart';
 

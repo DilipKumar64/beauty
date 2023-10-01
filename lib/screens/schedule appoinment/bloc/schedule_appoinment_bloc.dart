@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:beauty/modals/gpay_payment_sucess_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -33,7 +32,6 @@ class ScheduleAppoinmentBloc
 
   void onGpayPayPaymentSucessEvent(GpayPayPaymentSucessEvent event,
       Emitter<ScheduleAppoinmentState> emit) async {
-    ScheduleAppoinmentRepository repo = ScheduleAppoinmentRepository();
     List<GpayPaymentSucessModel> gpayPaymentSucessModelList = [];
     gpayPaymentSucessModelList.add(event.gpayPaymentSucessModel);
     gpayPaymentSucessModelList[0].paymentTime = DateTime.now();

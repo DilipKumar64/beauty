@@ -1,4 +1,4 @@
-import 'package:beauty/constants.dart';
+import 'package:beauty/utils/constants.dart';
 import 'package:beauty/screens/admin/screens/admin_pannel_secreen.dart';
 import 'package:beauty/screens/auth/screens/auth_screen.dart';
 import 'package:beauty/screens/profile/widgets/profile_tile.dart';

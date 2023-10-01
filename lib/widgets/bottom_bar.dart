@@ -1,4 +1,4 @@
-import 'package:beauty/constants.dart';
+import 'package:beauty/utils/constants.dart';
 import 'package:beauty/screens/profile/screens/profile_screen.dart';
 import 'package:beauty/screens/schedule%20appoinment/screens/schedule_appoinmtnet_screen.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,10 @@
-import 'package:beauty/constants.dart';
-import 'package:beauty/firebase_options.dart';
+import 'package:beauty/repositories/home_repository.dart';
+import 'package:beauty/screens/home/bloc/home_bloc.dart';
+import 'package:beauty/utils/constants.dart';
+import 'package:beauty/utils/firebase_options.dart';
 import 'package:beauty/repositories/auth_repository.dart';
 import 'package:beauty/repositories/schedule_appoinment_repository.dart';
-import 'package:beauty/router.dart';
+import 'package:beauty/utils/router.dart';
 import 'package:beauty/screens/admin/bloc/admin_pannel_bloc.dart';
 import 'package:beauty/screens/auth/bloc/auth_bloc.dart';
 import 'package:beauty/screens/auth/screens/onboarding_screen.dart';
@@ -46,7 +48,8 @@ class _MyAppState extends State<MyApp> {
             providers: [
               RepositoryProvider(create: (context) => AuthRepository()),
               RepositoryProvider(
-                  create: (context) => ScheduleAppoinmentRepository())
+                  create: (context) => ScheduleAppoinmentRepository()),
+              RepositoryProvider(create: (context) => HomeRepository())
             ],
             child: MultiBlocProvider(
               providers: [
@@ -60,7 +63,13 @@ class _MyAppState extends State<MyApp> {
                           repository: RepositoryProvider.of<
                               ScheduleAppoinmentRepository>(context),
                         ))),
-                BlocProvider(create: (context) => AdminPannelBloc())
+                BlocProvider(create: (context) => AdminPannelBloc()),
+                BlocProvider(
+                  create: (context) => HomeBloc(
+                      homeRepository:
+                          RepositoryProvider.of<HomeRepository>(context))
+                    ..add(FetchServicesDetailEvent()),
+                )
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,

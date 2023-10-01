@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class UserModel {
   final String uid;
   final String? phoneNumber;
@@ -18,7 +16,7 @@ class UserModel {
     required this.isAdmin,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'uid': uid,
       'phoneNumber': phoneNumber,
@@ -30,21 +28,18 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-        uid: map['uid'] as String,
+        uid: json['uid'] as String,
         phoneNumber:
-            map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
-        email: map['email'] != null ? map['email'] as String : null,
-        name: map['name'] != null ? map['name'] as String : null,
-        paymentId: map['paymentId'] != null ? map['paymentId'] as String : null,
-        appoinmentId:
-            map['appoinmentId'] != null ? map['appoinmentId'] as String : null,
-        isAdmin: map['isAdmin'] != null ? map['isAdmin'] as bool : false);
+            json['phoneNumber'] != null ? json['phoneNumber'] as String : null,
+        email: json['email'] != null ? json['email'] as String : null,
+        name: json['name'] != null ? json['name'] as String : null,
+        paymentId:
+            json['paymentId'] != null ? json['paymentId'] as String : null,
+        appoinmentId: json['appoinmentId'] != null
+            ? json['appoinmentId'] as String
+            : null,
+        isAdmin: json['isAdmin'] != null ? json['isAdmin'] as bool : false);
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
