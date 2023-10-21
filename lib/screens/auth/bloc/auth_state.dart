@@ -40,7 +40,7 @@ class UnAuthenticated extends AuthState {
 class AuthError extends AuthState {
   final String error;
 
-  AuthError(this.error);
+  const AuthError(this.error);
   @override
   List<Object?> get props => [error];
 }
@@ -48,7 +48,7 @@ class AuthError extends AuthState {
 class PhoneAuthError extends AuthState {
   final String error;
 
-  PhoneAuthError({required this.error});
+  const PhoneAuthError({required this.error});
 
   @override
   List<Object> get props => [error];

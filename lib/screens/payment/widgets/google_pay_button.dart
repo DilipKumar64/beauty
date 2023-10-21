@@ -26,15 +26,15 @@ class GpayButton extends StatelessWidget {
           status: PaymentItemStatus.final_price,
         ),
       ],
-
-      // ignore: prefer_const_constructors
-      loadingIndicator: CircularProgressIndicator(),
+      loadingIndicator: const CircularProgressIndicator(),
     );
   }
 
   onPaymentSucess(BuildContext context, Map<String, dynamic> result) {
     context.read<ScheduleAppoinmentBloc>().add(GpayPayPaymentSucessEvent(
         gpayPaymentSucessModel: GpayPaymentSucessModel.fromJson(result)));
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   onPaymentFailed(BuildContext context, Object? result) {

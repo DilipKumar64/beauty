@@ -1,11 +1,13 @@
+import 'package:beauty/screens/notification/screens/notification_screen.dart';
 import 'package:beauty/utils/constants.dart';
 import 'package:beauty/screens/profile/screens/profile_screen.dart';
-import 'package:beauty/screens/schedule%20appoinment/screens/schedule_appoinmtnet_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:badges/badges.dart' as badges;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../screens/home/home_screen.dart';
+import '../screens/notification/bloc/notification_bloc.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actualHome';
@@ -21,14 +23,12 @@ class _BottomBarState extends State<BottomBar> {
   double bottomBarBorderWidth = 5;
   List<Widget> pages = [
     const HomeScreen(),
-    const Center(
-      child: Text("search page"),
-    ),
-    const ScheduleAppoinmentScreen(
-        args: {"serviceType": "Basic - Rs 250", "noOfPeople": '2'}),
-    const Center(
-      child: Text("notification Page"),
-    ),
+    // const Center(
+    //   child: Text("search page"),
+    // ),
+    // const ScheduleAppoinmentScreen(
+    //     args: {"serviceType": "Basic - Rs 250", "noOfPeople": '2'}),
+    const NotificationScreen(),
     const ProfileScreen(),
   ];
   @override
@@ -49,18 +49,26 @@ class _BottomBarState extends State<BottomBar> {
             selectedIndex: page,
             backgroundColor: const Color(0xfffcfcfc),
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-            destinations: const [
-              NavigationDestination(
+            destinations: [
+              const NavigationDestination(
                   icon: Icon(Icons.home_outlined), label: 'home'),
-              NavigationDestination(icon: Icon(Icons.search), label: 'search'),
-              NavigationDestination(icon: Icon(Icons.event), label: 'event'),
+              // NavigationDestination(icon: Icon(Icons.search), label: 'search'),
+              // NavigationDestination(icon: Icon(Icons.event), label: 'event'),
               NavigationDestination(
                   icon: badges.Badge(
-                      badgeContent: Text('3'),
-                      badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
-                      child: Icon(Icons.notifications_active_outlined)),
+                      badgeContent:
+                          BlocBuilder<NotificationBloc, NotificationState>(
+                        builder: (context, state) {
+                          return state.appoinment != null
+                              ? const Text('1')
+                              : const Text('0');
+                        },
+                      ),
+                      badgeStyle:
+                          const badges.BadgeStyle(badgeColor: Colors.white),
+                      child: const Icon(Icons.notifications_active_outlined)),
                   label: 'notification'),
-              NavigationDestination(
+              const NavigationDestination(
                   icon: Icon(Icons.person_outline_outlined), label: 'profile'),
             ],
           ),

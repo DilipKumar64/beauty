@@ -21,6 +21,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       var list = await homeRepository.fetchServiceDetails();
       if (list == null) {
         throw CustomException(message: 'Unable to fetchdata');
+      } else {
+        emit(state.copyWith(
+            services: list, homeStateStatus: HomeStateStatus.sucess));
       }
     } catch (e) {
       if (e is CustomException) {

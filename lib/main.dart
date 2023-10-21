@@ -1,5 +1,7 @@
 import 'package:beauty/repositories/home_repository.dart';
+import 'package:beauty/repositories/notification_repository.dart';
 import 'package:beauty/screens/home/bloc/home_bloc.dart';
+import 'package:beauty/screens/notification/bloc/notification_bloc.dart';
 import 'package:beauty/utils/constants.dart';
 import 'package:beauty/utils/firebase_options.dart';
 import 'package:beauty/repositories/auth_repository.dart';
@@ -49,7 +51,8 @@ class _MyAppState extends State<MyApp> {
               RepositoryProvider(create: (context) => AuthRepository()),
               RepositoryProvider(
                   create: (context) => ScheduleAppoinmentRepository()),
-              RepositoryProvider(create: (context) => HomeRepository())
+              RepositoryProvider(create: (context) => HomeRepository()),
+              RepositoryProvider(create: (context) => NotificationRepository()),
             ],
             child: MultiBlocProvider(
               providers: [
@@ -68,8 +71,14 @@ class _MyAppState extends State<MyApp> {
                   create: (context) => HomeBloc(
                       homeRepository:
                           RepositoryProvider.of<HomeRepository>(context))
-                    ..add(FetchServicesDetailEvent()),
-                )
+                    ..add(const FetchServicesDetailEvent()),
+                ),
+                BlocProvider(
+                    create: (context) => NotificationBloc(
+                        repository:
+                            RepositoryProvider.of<NotificationRepository>(
+                                context))
+                      ..add(NotificationInitialEvent())),
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,

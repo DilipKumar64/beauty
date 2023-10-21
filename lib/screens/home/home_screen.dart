@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: BlocConsumer<HomeBloc, HomeState>(
             listener: (context, state) {
               if (state.homeStateStatus == HomeStateStatus.failed) {
-                print('here========================');
                 HelperComponent.showSnackbar(context, state.errorMessage!);
               }
             },

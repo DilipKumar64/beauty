@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:developer' as lgr;
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
@@ -10,7 +9,7 @@ class PaymentScreen extends StatelessWidget {
   static const String routeName = '/payment-screen';
   @override
   Widget build(BuildContext context) {
-    String os = Platform.operatingSystem;
+    // String os = Platform.operatingSystem;
     Widget googlePayButton = GooglePayButton(
       paymentConfiguration:
           PaymentConfiguration.fromJsonString(defaultGooglePay),

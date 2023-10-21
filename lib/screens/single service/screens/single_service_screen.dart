@@ -55,7 +55,7 @@ class SingleServiceScreen extends StatelessWidget {
                     SizedBox(height: 20.h),
                     ServiceTitleAndRating(title: title),
                     SizedBox(height: 15.h),
-                    CustomExpansionTile(),
+                    const CustomExpansionTile(),
                     SizedBox(height: 15.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,9 +86,12 @@ class SingleServiceScreen extends StatelessWidget {
                                       lastDate: DateTime.now()
                                           .add(const Duration(days: 100)));
                                   if (selectedTime != null) {
-                                    BlocProvider.of<SingleServiceBloc>(context)
-                                        .add(NewDateSelectedEvent(
-                                            selectedDate: selectedTime));
+                                    if (context.mounted) {
+                                      BlocProvider.of<SingleServiceBloc>(
+                                              context)
+                                          .add(NewDateSelectedEvent(
+                                              selectedDate: selectedTime));
+                                    }
                                   }
                                 },
                                 child: Row(

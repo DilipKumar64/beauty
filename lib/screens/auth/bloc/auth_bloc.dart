@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:beauty/repositories/auth_repository.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -78,24 +78,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepository.verifyPhone(
         phoneNumber: event.phoneNumber,
         verificationCompleted: (PhoneAuthCredential credential) async {
-          print('verificationCompleted');
           // On [verificationComplete], we will get the credential from the firebase  and will send it to the [OnPhoneAuthVerificationCompleteEvent] event to be handled by the bloc and then will emit the [PhoneAuthVerified] state after successful login
           add(OnPhoneAuthVerificationCompleteEvent(credential: credential));
         },
         codeSent: (String verificationId, int? resendToken) {
-          print('codesent');
           // On [codeSent], we will get the verificationId and the resendToken from the firebase and will send it to the [OnPhoneOtpSent] event to be handled by the bloc and then will emit the [OnPhoneAuthVerificationCompleteEvent] event after receiving the code from the user's phone
           add(OnPhoneOtpSent(
               verificationId: verificationId, token: resendToken));
         },
         verificationFailed: (FirebaseAuthException e) {
-          print('verificaion failed');
-          // On [verificationFailed], we will get the exception from the firebase and will send it to the [OnPhoneAuthErrorEvent] event to be handled by the bloc and then will emit the [PhoneAuthError] state in order to display the error to the user's screen
           add(OnPhoneAuthErrorEvent(error: e.code));
         },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          print('code timed out');
-        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
       );
     } catch (e) {
       emit(AuthError(e.toString()));

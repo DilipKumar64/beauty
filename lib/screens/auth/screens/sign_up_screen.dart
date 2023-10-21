@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<EmailSignUpScreen> {
         child: Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(50),
         child: SizedBox(
           height: 50,
           child: Padding(

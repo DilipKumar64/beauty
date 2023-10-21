@@ -86,7 +86,6 @@ class AdminPannelBloc extends Bloc<AdminPannelEvent, AdminPannelState> {
       };
       SingleServiceModal? serviceModal =
           await adminPannelRepository.uploadServicesDetails(data);
-      print(serviceModal!.toJson());
     } catch (e) {
       if (e is CustomException) {
         HelperComponent.showSnackbar(event.context, e.message);

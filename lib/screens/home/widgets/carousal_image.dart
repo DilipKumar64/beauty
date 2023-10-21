@@ -12,8 +12,12 @@ class CarouselImage extends StatelessWidget {
     return CarouselSlider(
       items: carouselImages.map(
         (i) {
-          return Container(
-            color: i,
+          return SizedBox(
+            width: 500.w,
+            child: Image.asset(
+              i,
+              fit: BoxFit.cover,
+            ),
           );
         },
       ).toList(),

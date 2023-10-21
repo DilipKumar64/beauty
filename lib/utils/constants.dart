@@ -44,10 +44,10 @@ FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 Reference firebaseStorage = FirebaseStorage.instance.ref();
 FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 // carousal
-const List<Color> carouselImages = [
-  Colors.deepPurple,
-  Colors.deepOrange,
-  Colors.pinkAccent
+const List<String> carouselImages = [
+  "assets/images/carousel1.png",
+  "assets/images/carousel3.png",
+  "assets/images/caurasel-image2.png",
 ];
 
 const List<Map<String, String>> categoryImages = [

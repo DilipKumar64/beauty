@@ -5,21 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomExpansionTile extends StatelessWidget {
-  CustomExpansionTile({super.key});
+  const CustomExpansionTile({super.key});
 
-  List<String> serviceTypeList = [
-    'Basic - Rs.250',
-    'Premium - Rs.449',
-    'VIP - Rs.799'
-  ];
-
-  int seletedIndex = 0;
   void _toggleExpand(BuildContext context, bool isExpanded) {
     BlocProvider.of<SingleServiceBloc>(context)
         .add(SelectServiceTypeToggled(isExpanded: isExpanded));
   }
 
-  void onNewItemSelected(BuildContext context, int index, bool isExpanded) {
+  void onNewItemSelected(BuildContext context, int index, bool isExpanded,
+      List<String> serviceTypeList) {
     BlocProvider.of<SingleServiceBloc>(context)
         .add(SelectServiceTypeToggled(isExpanded: isExpanded));
     BlocProvider.of<SingleServiceBloc>(context).add(TypeOfServiceUpdated(
@@ -28,6 +22,12 @@ class CustomExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> serviceTypeList = [
+      'Basic - Rs.250',
+      'Premium - Rs.449',
+      'VIP - Rs.799'
+    ];
+
     return BlocBuilder<SingleServiceBloc, SingleServiceState>(
       builder: (context, state) {
         return Container(
@@ -70,8 +70,8 @@ class CustomExpansionTile extends StatelessWidget {
                         itemCount: serviceTypeList.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: () => onNewItemSelected(
-                                context, index, state.isExpanded),
+                            onTap: () => onNewItemSelected(context, index,
+                                state.isExpanded, serviceTypeList),
                             child: Container(
                               color: (state.selectedIndex == index)
                                   ? kPrimaryColor
