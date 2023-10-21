@@ -210,7 +210,7 @@ class SingleServiceScreen extends StatelessWidget {
         builder: (context, state) {
           return Dialog(
             child: SizedBox(
-              height: 120.h,
+              height: 135.h,
               width: 100,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

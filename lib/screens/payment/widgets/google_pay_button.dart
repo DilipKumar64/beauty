@@ -1,4 +1,6 @@
 import 'package:beauty/modals/gpay_payment_sucess_model.dart';
+import 'package:beauty/screens/home/helper_component.dart';
+import 'package:beauty/screens/notification/bloc/notification_bloc.dart';
 import 'package:beauty/screens/schedule%20appoinment/bloc/schedule_appoinment_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +37,8 @@ class GpayButton extends StatelessWidget {
         gpayPaymentSucessModel: GpayPaymentSucessModel.fromJson(result)));
     Navigator.pop(context);
     Navigator.pop(context);
+    HelperComponent.showSnackbar(context, "Appoinment booked sucessfully!!");
+    context.read<NotificationBloc>().add(NotificationInitialEvent());
   }
 
   onPaymentFailed(BuildContext context, Object? result) {

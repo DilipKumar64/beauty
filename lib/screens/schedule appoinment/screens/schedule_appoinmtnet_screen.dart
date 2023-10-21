@@ -85,11 +85,30 @@ class ScheduleAppoinmentScreen extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Text(
-                        'Choose time',
-                        style: textTheme.headlineSmall!
-                            .copyWith(fontWeight: FontWeight.normal),
+                    SizedBox(
+                      height: 35.h,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Text(
+                              'Choose time',
+                              style: textTheme.headlineSmall!
+                                  .copyWith(fontWeight: FontWeight.normal),
+                            ),
+                          ),
+                          Positioned(
+                            left: 0,
+                            top: 0,
+                            child: IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: const Icon(
+                                Icons.arrow_circle_left,
+                                color: Color.fromARGB(255, 88, 88, 88),
+                                size: 30,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                     SizedBox(height: 30.h),
